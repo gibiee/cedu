@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cedu 초안</title>
+    <style>
+      form { display:inline; }
+    </style>
+
+    <script src="jquery-3.3.1.js"></script>
+    <script language="JavaScript" src="compiler.js"></script>
+
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> -->
+    <script src="C:\Users\gibie\source\Cedu\LinedTextarea\jquery-linedtextarea.js"></script>
+    <link href="C:\Users\gibie\source\Cedu\LinedTextarea\jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
+    <script>
+      $(function () { $(".lined").linedtextarea({
+          //selectedLine: 1
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function() {
+        $("#컴파일").click(function() {
+          var user_code = $("#유저코드").val();
+          $("#결과").val(user_code + "\n이것을 컴파일러로 보냅니다.")
+          compiler(user_code);
+        })
+
+        $("#실행").click(function() {
+          $("#결과").val("결과값이 출력됩니다")
+        })
+
+        $("#디버그").click(function() {
+        })
+      });
+    </script>
+  </head>
+
+  <body>
+    <button>자동 줄 정렬</button>
+    <button id="컴파일" style="margin-left:150px">컴파일</button>
+    <button id="실행">실행</button>
+    <button id="디버그">디버그</button>
+    <br/>
+
+    <table>
+      <tr>
+        <th rowspan="2">
+          <div align="left">소스코드</div>
+            <textarea name="유저코드" class="lined" id="유저코드" cols="80" rows="25" value="유저코드"></textarea>
+          </div>
+        </th>
+        <th>
+          <div align="left">입력값</div>
+          <textarea disabled name="입력" id="입력" cols="50" rows="5"></textarea>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <div align="left">결과값</div>
+          <textarea disabled name="결과" id="결과" cols="50" rows="20"></textarea>
+        </th>
+      </tr>
+    </table>
+  </body>
+</html>
