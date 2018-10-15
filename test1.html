@@ -1,0 +1,20 @@
+<html>
+<head>
+  <script src="jquery-3.3.1.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#aa").text('초기값');
+      $("#aa").text('초기값2');
+      $("#a").click(function() {
+        var ab = 5;
+        $('#aa').append(ab);
+        alert( $('#aa').text() );
+      })});
+  </script>
+</head>
+
+<body>
+  <button id='a' width="100px" height="100px"></button>
+  <textarea id='aa'>값이 있으면?</textarea>
+</body>
+</html>

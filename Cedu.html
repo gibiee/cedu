@@ -5,13 +5,13 @@
     <style>
       form { display:inline; }
     </style>
-
     <script src="jquery-3.3.1.js"></script>
-    <script language="JavaScript" src="compiler.js"></script>
-
     <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> -->
-    <script src="C:\Users\gibie\source\Cedu\LinedTextarea\jquery-linedtextarea.js"></script>
-    <link href="C:\Users\gibie\source\Cedu\LinedTextarea\jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
+    <script src=".\LinedTextarea\jquery-linedtextarea.js"></script>
+    <link href=".\LinedTextarea\jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
+
+    <script language="JavaScript" src="Cedu_Execution.js"></script>
+    <script language="JavaScript" src="Cedu_Compiler.js"></script>
     <script>
       $(function () { $(".lined").linedtextarea({
           //selectedLine: 1
@@ -20,14 +20,22 @@
     </script>
     <script>
       $(document).ready(function() {
+        var compile_user_code;
+        var execution_user_code;
+
         $("#컴파일").click(function() {
-          var user_code = $("#유저코드").val();
-          $("#결과").val(user_code + "\n이것을 컴파일러로 보냅니다.")
-          compiler(user_code);
+          compile_user_code = $("#유저코드").val();
+          compiler(compile_user_code);
         })
 
         $("#실행").click(function() {
-          $("#결과").val("결과값이 출력됩니다")
+          execution_user_code = $("#유저코드").val();
+          if( execution_user_code === compile_user_code){
+            execution(execution_user_code);
+          }
+          else {
+            $("#결과").text("실행 전에 컴파일을 먼저 수행해주세요.").css('color','red');
+          }
         })
 
         $("#디버그").click(function() {
@@ -41,13 +49,21 @@
     <button id="컴파일" style="margin-left:150px">컴파일</button>
     <button id="실행">실행</button>
     <button id="디버그">디버그</button>
-    <br/>
-
+    <br/><br/>
     <table>
       <tr>
         <th rowspan="2">
           <div align="left">소스코드</div>
-            <textarea name="유저코드" class="lined" id="유저코드" cols="80" rows="25" value="유저코드"></textarea>
+            <textarea name="유저코드" class="lined" id="유저코드" cols="80" rows="25">
+함수 메인()
+{
+    변수 숫자;
+    숫자 = 5;
+    출력(숫자);
+    줄바꿈();
+    출력(숫자+1);
+}
+            </textarea>
           </div>
         </th>
         <th>
