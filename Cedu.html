@@ -2,16 +2,14 @@
 <html>
   <head>
     <title>Cedu 초안</title>
-    <style>
-      form { display:inline; }
-    </style>
     <script src="jquery-3.3.1.js"></script>
     <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> -->
     <script src=".\LinedTextarea\jquery-linedtextarea.js"></script>
     <link href=".\LinedTextarea\jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
 
-    <script language="JavaScript" src="Cedu_Execution.js"></script>
+    <script language="JavaScript" src="Cedu_SourceCode.js"></script>
     <script language="JavaScript" src="Cedu_Compiler.js"></script>
+    <script language="JavaScript" src="Cedu_Execution.js"></script>
     <script>
       $(function () { $(".lined").linedtextarea({
           //selectedLine: 1
@@ -40,6 +38,23 @@
 
         $("#디버그").click(function() {
         })
+
+        $(document).delegate('#유저코드', 'keydown', function(e) {
+          var keyCode = e.keyCode || e.which;
+          if (keyCode == 9) {
+            e.preventDefault();
+            var start = this.selectionStart;
+            var end = this.selectionEnd;
+            var text = $(this).val();
+            var selText = text.substring(start, end);
+            $(this).val(
+              text.substring(0, start) +
+              "    " + selText.replace(/\n/g, "\n\t") +
+              text.substring(end)
+            );
+            this.selectionStart = this.selectionEnd = start + 4;
+          }
+        });
       });
     </script>
   </head>

@@ -1,5 +1,4 @@
 function compiler(user_code) {
-
   if(user_code.search("메인()") == -1) {
     $("#결과").text("오류 : 메인 함수가 없습니다!").css('color','red');return;
   }

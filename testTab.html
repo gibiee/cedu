@@ -1,0 +1,29 @@
+
+<html>
+<head>
+  <script language="JavaScript" src="jquery-3.3.1.js"></script>
+  <script>
+  $(document).delegate('#content', 'keydown', function(e) {
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == 9) {
+      e.preventDefault();
+      var start = this.selectionStart;
+      var end = this.selectionEnd;
+      var text = $(this).val();
+      var selText = text.substring(start, end);
+      $(this).val(
+        text.substring(0, start) +
+        "\t" + selText.replace(/\n/g, "\n\t") +
+        text.substring(end)
+      );
+      this.selectionStart = this.selectionEnd = start + 1;
+      alert('a');
+    }
+  });
+  </script>
+</head>
+<body>
+<textarea id="content" rows="20" cols="50"></textarea>
+<button id="button" width="100px" height="100px">
+</bdoy>
+</html>
