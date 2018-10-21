@@ -41,16 +41,13 @@
 
         $("#유저코드").bind('keydown', function(event) {
           useTab.call(this, event);
-
-          $("#divTest").text( $("#유저코드").val() );
-          $("#spanTest").text( $("#유저코드").val() );
         });
 
         $("#divTest").bind('keydown', function(event) {
-            $("#유저코드").text( $("#divTest").text() );
+          onKeyDown.call(this, event);
         });
         $("#spanTest").bind('keydown', function(event) {
-            $("#유저코드").text( $("#spanTest").text() );
+            //$("#유저코드").text( $("#spanTest").text() );
         });
       });
     </script>
