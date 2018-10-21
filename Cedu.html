@@ -39,8 +39,18 @@
         $("#디버그").click(function() {
         })
 
-        $(document).delegate('#유저코드', 'keydown', function(e) {
-          useTab.call(this,e);
+        $("#유저코드").bind('keydown', function(event) {
+          useTab.call(this, event);
+
+          $("#divTest").text( $("#유저코드").val() );
+          $("#spanTest").text( $("#유저코드").val() );
+        });
+
+        $("#divTest").bind('keydown', function(event) {
+            $("#유저코드").text( $("#divTest").text() );
+        });
+        $("#spanTest").bind('keydown', function(event) {
+            $("#유저코드").text( $("#spanTest").text() );
         });
       });
     </script>
@@ -81,9 +91,11 @@
       </tr>
     </table>
 
-    <div class="lined" contenteditable="true" keydown="alert('a')">
-aaa\n
-aaaa
+    <div class="lined" contenteditable="true" id="divTest" tabindex="0" style="display:inline-block; width:100px;white-space:pre">
+      div
     </div>
+    <span class="lined" contenteditable="true" id='spanTest' tabindex="0" style="display:inline-block; width:100px;white-space:pre">
+      span
+    </span>
   </body>
 </html>

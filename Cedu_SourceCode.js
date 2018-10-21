@@ -1,4 +1,3 @@
-//활용할 방법이 없나...
 function useTab(e)
 {
   var keyCode = e.keyCode || e.which;
