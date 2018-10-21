@@ -3,7 +3,7 @@
   <head>
     <title>Cedu 초안</title>
     <script src="jquery-3.3.1.js"></script>
-    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script> -->
+
     <script src=".\LinedTextarea\jquery-linedtextarea.js"></script>
     <link href=".\LinedTextarea\jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
 
@@ -40,20 +40,7 @@
         })
 
         $(document).delegate('#유저코드', 'keydown', function(e) {
-          var keyCode = e.keyCode || e.which;
-          if (keyCode == 9) {
-            e.preventDefault();
-            var start = this.selectionStart;
-            var end = this.selectionEnd;
-            var text = $(this).val();
-            var selText = text.substring(start, end);
-            $(this).val(
-              text.substring(0, start) +
-              "    " + selText.replace(/\n/g, "\n\t") +
-              text.substring(end)
-            );
-            this.selectionStart = this.selectionEnd = start + 4;
-          }
+          useTab.call(this,e);
         });
       });
     </script>
@@ -69,7 +56,7 @@
       <tr>
         <th rowspan="2">
           <div align="left">소스코드</div>
-            <textarea name="유저코드" class="lined" id="유저코드" cols="80" rows="25">
+            <textarea class="lined" id="유저코드" cols="80" rows="25">
 함수 메인()
 {
     변수 숫자;
@@ -83,15 +70,20 @@
         </th>
         <th>
           <div align="left">입력값</div>
-          <textarea disabled name="입력" id="입력" cols="50" rows="5"></textarea>
+          <textarea disabled id="입력" cols="50" rows="5"></textarea>
         </th>
       </tr>
       <tr>
         <th>
           <div align="left">결과값</div>
-          <textarea disabled name="결과" id="결과" cols="50" rows="20"></textarea>
+          <textarea disabled id="결과" cols="50" rows="20"></textarea>
         </th>
       </tr>
     </table>
+
+    <div class="lined" contenteditable="true" keydown="alert('a')">
+aaa\n
+aaaa
+    </div>
   </body>
 </html>
