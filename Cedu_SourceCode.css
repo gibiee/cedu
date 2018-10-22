@@ -1,0 +1,12 @@
+#유저코드 {
+  width:500px;
+  height:300px;
+  white-space:pre;
+  overflow:auto;
+  tab-size:1;
+  overflow-y:scroll;
+
+  -moz-tab-size : 4;
+    -o-tab-size : 4;
+       tab-size : 4;
+}

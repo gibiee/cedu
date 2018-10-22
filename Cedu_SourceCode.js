@@ -1,4 +1,4 @@
-function useTab(e)
+/*function useTab(e)
 {
   var keyCode = e.keyCode || e.which;
   if (keyCode == 9) {
@@ -9,13 +9,13 @@ function useTab(e)
     var selText = text.substring(start, end);
     $(this).val(
       text.substring(0, start) +
-      "    " + selText.replace(/\n/g, "\n\t") +
+      '\t' + selText.replace(/\n/g, "\n\t") +
       text.substring(end)
     );
-    this.selectionStart = this.selectionEnd = start + 4;
+    this.selectionStart = this.selectionEnd = start + 1;
   }
-}
-function onKeyDown(e) {
+}*/
+function useTab(e) {
     if (e.keyCode === 9) { // tab key
         e.preventDefault();  // this will prevent us from tabbing out of the editor
 
@@ -25,7 +25,7 @@ function onKeyDown(e) {
         var sel = doc.getSelection();
         var range = sel.getRangeAt(0);
 
-        var tabNode = document.createTextNode("\u00a0\u00a0\u00a0\u00a0");
+        var tabNode = document.createTextNode('\t');
         range.insertNode(tabNode);
 
         range.setStartAfter(tabNode);

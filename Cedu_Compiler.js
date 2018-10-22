@@ -1,4 +1,5 @@
 function compiler(user_code) {
+
   if(user_code.search("메인()") == -1) {
     $("#결과").text("오류 : 메인 함수가 없습니다!").css('color','red');return;
   }
@@ -12,6 +13,7 @@ function compiler(user_code) {
   $("#결과").text("컴파일 성공!").css('color','blue');
   return true;
 }
+
 function count_brace(user_code) {
   var left_brace = ( user_code.match(/{/g) || [] ).length;
   var right_brace = ( user_code.match(/}/g) || [] ).length;

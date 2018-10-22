@@ -7,6 +7,7 @@
     <script src=".\LinedTextarea\jquery-linedtextarea.js"></script>
     <link href=".\LinedTextarea\jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
 
+    <link href="Cedu_SourceCode.css" type="text/css" rel="stylesheet" />
     <script language="JavaScript" src="Cedu_SourceCode.js"></script>
     <script language="JavaScript" src="Cedu_Compiler.js"></script>
     <script language="JavaScript" src="Cedu_Execution.js"></script>
@@ -22,12 +23,12 @@
         var execution_user_code;
 
         $("#컴파일").click(function() {
-          compile_user_code = $("#유저코드").val();
+          compile_user_code = $("#유저코드").text();
           compiler(compile_user_code);
         })
 
         $("#실행").click(function() {
-          execution_user_code = $("#유저코드").val();
+          execution_user_code = $("#유저코드").text();
           if( execution_user_code === compile_user_code){
             execution(execution_user_code);
           }
@@ -41,13 +42,6 @@
 
         $("#유저코드").bind('keydown', function(event) {
           useTab.call(this, event);
-        });
-
-        $("#divTest").bind('keydown', function(event) {
-          onKeyDown.call(this, event);
-        });
-        $("#spanTest").bind('keydown', function(event) {
-            //$("#유저코드").text( $("#spanTest").text() );
         });
       });
     </script>
@@ -63,15 +57,11 @@
       <tr>
         <th rowspan="2">
           <div align="left">소스코드</div>
-            <textarea class="lined" id="유저코드" cols="80" rows="25">
-함수 메인()
-{
-    변수 숫자;
-    숫자 = 5;
-    출력(숫자);
-    줄바꿈();
-    출력(숫자+1);
-}
+            <textarea class="lined" cols="80" rows="25">
+div태그에서
+enter 입력 시
+여기로 값이 전달되게
+만들 예정.
             </textarea>
           </div>
         </th>
@@ -88,11 +78,25 @@
       </tr>
     </table>
 
-    <div class="lined" contenteditable="true" id="divTest" tabindex="0" style="display:inline-block; width:100px;white-space:pre">
-      div
+    <div contenteditable="true" id="유저코드">
+함수 메인()
+{
+    변수 숫자;
+    숫자 = 3;
+    반복(변수 i=0; i<숫자; i++)
+    {
+      출력("숫자 값은 ",숫자,"입니다.\n");
+    }
+
+    만약(숫자 % 2 == 0 )
+    {
+      출력(숫자,"는 짝수입니다.");
+    }
+    그렇지않으면
+    {
+      출력(숫자,"는 홀수입니다.");
+    }
+}
     </div>
-    <span class="lined" contenteditable="true" id='spanTest' tabindex="0" style="display:inline-block; width:100px;white-space:pre">
-      span
-    </span>
   </body>
 </html>
