@@ -17,3 +17,5 @@ textarea -> div 방향 및 div -> textarea 방향 : 양방향으로 반박자 �
 
 >입력 box : div or span
 >> textarea 이면 커서가 보이지 않음.
+
+z-index를 활용하여 textarea 맨 뒤로 보낼 것!
