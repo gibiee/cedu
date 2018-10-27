@@ -1,36 +1,30 @@
-/*function useTab(e)
-{
-  var keyCode = e.keyCode || e.which;
-  if (keyCode == 9) {
-    e.preventDefault();
-    var start = this.selectionStart;
-    var end = this.selectionEnd;
-    var text = $(this).val();
-    var selText = text.substring(start, end);
-    $(this).val(
-      text.substring(0, start) +
-      '\t' + selText.replace(/\n/g, "\n\t") +
-      text.substring(end)
-    );
-    this.selectionStart = this.selectionEnd = start + 1;
-  }
-}*/
 function useTab(e) {
-    if (e.keyCode === 9) { // tab key
-        e.preventDefault();  // this will prevent us from tabbing out of the editor
+  e.preventDefault();  // this will prevent us from tabbing out of the editor
 
-        // now insert four non-breaking spaces for the tab key
-        var editor = e.target;
-        var doc = editor.ownerDocument.defaultView;
-        var sel = doc.getSelection();
-        var range = sel.getRangeAt(0);
+  // now insert four non-breaking spaces for the tab key
+  var editor = e.target;
+  var doc = editor.ownerDocument.defaultView;
+  var sel = doc.getSelection();
+  var range = sel.getRangeAt(0);
 
-        var tabNode = document.createTextNode('\t');
-        range.insertNode(tabNode);
+  var tabNode = document.createTextNode('\t');
+  range.insertNode(tabNode);
 
-        range.setStartAfter(tabNode);
-        range.setEndAfter(tabNode);
-        sel.removeAllRanges();
-        sel.addRange(range);
-    }
+  range.setStartAfter(tabNode);
+  range.setEndAfter(tabNode);
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+function usercodeToTextarea(user_code_html) {
+  user_code_html = user_code_html.replace(/<div>/g,'\n');
+  user_code_html = user_code_html.replace(/<br>/g, '');
+  user_code_html = user_code_html.replace(/<\/div>/g, '');
+  user_code_html = user_code_html.replace(/<span class="ReservedWord">/g, '');
+  user_code_html = user_code_html.replace(/<\/span>/g, '');
+  user_code_html = user_code_html.replace(/&lt;/g, '<');
+  user_code_html = user_code_html.replace(/&gt;/g, '>');
+  user_code_html = user_code_html.replace(/&amp;/g, '&');
+
+  $('#가려진textarea').text( user_code_html );
 }
