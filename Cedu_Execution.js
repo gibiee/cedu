@@ -4,7 +4,7 @@ function execution(user_code) {
   user_code = change_code(user_code);
 
   //결과값 창 초기화
-  $("#결과").text('').css('color','black');
+  $("#출력").text('').css('color','black');
 
   eval(user_code);
 
@@ -14,7 +14,7 @@ function execution(user_code) {
 function change_code(user_code) {
   user_code = user_code.replace(/변수/g, 'var');
   user_code = user_code.replace(/함수/g, 'function');
-  user_code = user_code.replace(/출력\(/g, '$("#결과").append(');
+  user_code = user_code.replace(/출력/g, '$("#출력").append');
   user_code = user_code.replace(/만약/g, 'if');
   user_code = user_code.replace(/그렇지않으면/g, 'else');
   user_code = user_code.replace(/그렇지않다면/g, 'else');
@@ -26,7 +26,7 @@ function change_code(user_code) {
 
   user_code += "\n메인();";
 
-  console.log(user_code);
+  //console.log(user_code);
 
   return user_code;
 }

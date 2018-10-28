@@ -1,8 +1,35 @@
 #유저코드 {
   width:500px;
-  height:300px;
+  height:500px;
+  border:1px blue solid;
 
   font-family:'Malgun Gothic';
+  font-size:13px;
+  white-space:pre;
+  color : gray;
+  caret-color: black;
+
+  overflow:auto;
+  overflow-y:scroll;
+
+  -moz-tab-size : 4;
+    -o-tab-size : 4;
+       tab-size : 4;
+}
+
+#표시화면 {
+  position:absolute;
+  border: 1px red solid;
+
+  padding-top: 4px;
+  padding-left: 2px;
+
+  width:400px;
+  height:300px;
+  pointer-events: none;
+
+  font-family:'Malgun Gothic';
+  font-size:13px;
   white-space:pre;
 
   overflow:auto;
@@ -13,28 +40,16 @@
        tab-size : 4;
 }
 
-#가려진textarea {
-  width:500px;
-  height:500px;
-
-  font-family:'Malgun Gothic';
-  white-space:pre;
-
-  -moz-tab-size : 4;
-    -o-tab-size : 4;
-       tab-size : 4;
-}
-
-#입력박스 {
+#입력 {
    width:300px;
    height:100px;
 }
 
-#출력박스 {
+#출력 {
   width:300px;
   height:300px;
 }
 
-.ReservedWord {
+.ReservedWord_Blue {
   color : blue;
 }
