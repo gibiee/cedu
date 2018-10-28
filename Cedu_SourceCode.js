@@ -18,6 +18,10 @@ function useTab(e) {
   e.preventDefault();
 }
 
+function shareScroll() {
+  $('#표시화면').scrollTop( $('#소스코드').scrollTop() );
+  $('#표시화면').scrollLeft( $('#소스코드').scrollLeft() );
+}
 /* For <div>
 function useTab(e) {
   e.preventDefault();  // this will prevent us from tabbing out of the editor

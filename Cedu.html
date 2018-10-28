@@ -19,16 +19,16 @@
       $(document).ready(function() {
         var compile_user_code;
         var execution_user_code;
-        var sourceCode_position = $('#유저코드').offset();
+        var sourceCode_position = $('#소스코드').offset();
         $('#표시화면').css({'top':sourceCode_position.top+'px', 'left':sourceCode_position.left+'px'});
 
         $("#컴파일").click(function() {
-          compile_user_code = $("#유저코드").val();
+          compile_user_code = $("#소스코드").val();
           compiler(compile_user_code);
         })
 
         $("#실행").click(function() {
-          execution_user_code = $("#유저코드").val();
+          execution_user_code = $("#소스코드").val();
           if( execution_user_code === compile_user_code){
             execution(execution_user_code);
           }
@@ -40,12 +40,16 @@
         $("#디버그").click(function() {
         })
 
-        $("#유저코드").bind('keydown', function(event) {
+        $("#소스코드").bind('keydown', function(event) {
           if(event.keyCode == 9 ) { useTab.call(this, event); }
-          reservedWord_color( $('#유저코드').val() );
+          reservedWord_color( $('#소스코드').val() );
         });
-        $("#유저코드").bind('keyup', function(event) {
-          reservedWord_color( $('#유저코드').val() );
+        $("#소스코드").bind('keyup', function(event) {
+          reservedWord_color( $('#소스코드').val() );
+          shareScroll();
+        });
+        $('#소스코드').scroll( function() {
+          shareScroll();
         });
       });
     </script>
@@ -62,7 +66,7 @@
       <tr>
         <th rowspan="2">
           <div align="left">소스코드</div>
-            <textarea class="lined" id="유저코드">
+            <textarea class="lined" id="소스코드">
 함수 메인()
 {
   변수 숫자;
@@ -80,6 +84,9 @@
     출력(숫자,"는 홀수입니다.");
   }
 }
+
+
+
         </textarea>
         </th>
         <th>
