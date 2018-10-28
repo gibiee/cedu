@@ -43,9 +43,11 @@
 
         $("#유저코드").bind('keydown', function(event) {
           if(event.keyCode == 9 ) { useTab(event); }
+          //div에서 enter 값을 <div><br></div> 가 아닌 '\n'으로 수정
+          if(event.keyCode == 13 ) { useEnter(event); }
         });
         $("#유저코드").bind('keyup', function(event) {
-          usercodeToTextarea( $("#유저코드").html() );//enter값이 연동이 안 되기 때문에 html()값으로 받아야함.
+          $('#가려진textarea').text( $("#유저코드").text() );
           reservedWord_color( $("#유저코드").html() );
         });
         $("#유저코드").one('click', function() {
