@@ -8,6 +8,7 @@
     <link href=".\LinedTextarea\jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
 
     <link href="Cedu_SourceCode.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <script language="JavaScript" src="Cedu_SourceCode.js"></script>
     <script language="JavaScript" src="Cedu_Compiler.js"></script>
     <script language="JavaScript" src="Cedu_Execution.js"></script>
@@ -17,20 +18,20 @@
     </script>
     <script>
       $(document).ready(function() {
-        var compile_user_code;
-        var execution_user_code;
+        var compile_source_code;
+        var execution_source_code;
         var sourceCode_position = $('#소스코드').offset();
         $('#표시화면').css({'top':sourceCode_position.top+'px', 'left':sourceCode_position.left+'px'});
 
         $("#컴파일").click(function() {
-          compile_user_code = $("#소스코드").val();
-          compiler(compile_user_code);
+          compile_source_code = $("#소스코드").val();
+          compiler(compile_source_code);
         })
 
         $("#실행").click(function() {
-          execution_user_code = $("#소스코드").val();
-          if( execution_user_code === compile_user_code){
-            execution(execution_user_code);
+          execution_source_code = $("#소스코드").val();
+          if( execution_source_code === compile_source_code){
+            execution(execution_source_code);
           }
           else {
             $("#출력").text("실행 전에 컴파일을 먼저 수행해주세요.").css('color','red');
@@ -43,6 +44,7 @@
         $("#소스코드").bind('keydown', function(event) {
           if(event.keyCode == 9 ) { useTab.call(this, event); }
           reservedWord_color( $('#소스코드').val() );
+          shareScroll();
         });
         $("#소스코드").bind('keyup', function(event) {
           reservedWord_color( $('#소스코드').val() );
@@ -56,10 +58,10 @@
   </head>
 
   <body>
-    <button>자동 줄 정렬</button>
-    <button id="컴파일" style="margin-left:150px">컴파일</button>
-    <button id="실행">실행</button>
-    <button id="디버그">디버그</button>
+    <button class="btn btn-warning">자동 줄 정렬</button>
+    <button id="컴파일" class="btn btn-primary" style="margin-left:150px">컴파일</button>
+    <button id="실행" class="btn btn-success">실행</button>
+    <button id="디버그" class="btn btn-danger">디버그</button>
     <br/><br/>
 
     <table>
@@ -69,35 +71,25 @@
             <textarea class="lined" id="소스코드">
 함수 메인()
 {
-  변수 숫자;
-  숫자 = 3;
-  반복(변수 i=0; i<숫자; i++)
-  {
-    출력("숫자 값은 ",숫자,"입니다.\n");
-  }
-
-  만약(숫자 % 2 == 0 )
-  {
-    출력(숫자,"는 짝수입니다.");
-  }
-  그렇지않으면 {
-    출력(숫자,"는 홀수입니다.");
-  }
+  변수 a;
+  ()변수 a;
+  변수a;
+  a변수;
+  a변수 a;
+  변수a a;
+  {}변수 a;
 }
-
-
-
         </textarea>
         </th>
         <th>
-          <div align="left">입력</div>
-          <textarea disabled id="입력"></textarea>
+          <div style="margin-left:50px">입력</div>
+          <textarea id="입력" style="margin-left:50px">10 3 5 a</textarea>
         </th>
       </tr>
       <tr>
         <th>
-          <div align="left">출력</div>
-          <textarea disabled id="출력"></textarea>
+          <div align="left" style="margin-left:50px">출력</div>
+          <textarea disabled id="출력" style="margin-left:50px"></textarea>
         </th>
       </tr>
     </table>

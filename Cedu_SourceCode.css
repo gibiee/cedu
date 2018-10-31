@@ -6,8 +6,9 @@
 
   font-family:'Malgun Gothic';
   font-size:13px;
+  font-weight: normal;
   white-space:pre;
-  color : white;
+  color : gray;
   caret-color: black;
 
   overflow:scroll;
@@ -22,33 +23,34 @@
   border: 1px red solid;
   zindex=1;
 
-  width:441px;
-  height:502px;
+  width:0px;
+  height:0px;
 
   padding-top : 4px;
   padding-left : 2px;
+
+  padding-bottom: 485px;
+  padding-right : 425px;
   pointer-events: none;
 
   font-family:'Malgun Gothic';
   font-size:13px;
   white-space:pre;
 
-  overflow:scroll;
+  overflow:hidden;
 
   -moz-tab-size : 4;
     -o-tab-size : 4;
        tab-size : 4;
 }
 
-#실험 {
-  width:30px;
-  height:300px;
-  overflow:scroll;
-}
-
 #입력 {
    width:300px;
    height:100px;
+
+   overflow:auto;
+   white-space: nowrap;
+   font-weight: normal;
 }
 
 #출력 {
