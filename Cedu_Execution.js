@@ -10,6 +10,7 @@ function execution(source_code) {
   $("#출력").text('').css('color','black'); //출력박스 초기화
 
   eval(source_code);
+  console.log(source_code);
 
   return true;
 }
@@ -69,11 +70,11 @@ function change_code_input(source_code, 입력_value) {
 }
 
 function change_code_for(source_code) {
-  var start = 0;
+  var start = 0, in_start;
   var end;
-  var in_start;
-  var content;
   var temp_substr;
+  var in_variable
+  var i_for, i_num = 0;
 
   while (true) {
     start = source_code.indexOf('반복', start+1);
@@ -83,7 +84,9 @@ function change_code_for(source_code) {
     temp_str = source_code.substring(start,end+1);
     if ( temp_str.split(';').length == 1 ) {
       in_start = source_code.indexOf('(', start);
-      source_code = source_code.replace(temp_str, "for(var __i = 0; __i < " + source_code.substring(in_start+1,end) + "; __i++)");
+      in_variable = source_code.substring(in_start+1,end);
+      i_for = "__i" + i_num++;
+      source_code = source_code.replace(temp_str, "for(var " + i_for + " = 0; " + i_for + " < " + in_variable + "; " + i_for + "++)");
     }
   }
   return source_code;

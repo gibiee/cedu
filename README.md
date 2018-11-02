@@ -5,7 +5,8 @@
 Using...
 - HTML
 - CSS
-- JavaScript(with jQuery)
+- JavaScript
+- OpenSource : jQuery, 부트스트랩...
 
 
 ### NEXT
@@ -15,4 +16,4 @@ Using...
 
 ### 최종 디자인 완성되면
 - 소스코드 글자 color:gray로 주고 그림자 맞추기
-- <table> 간격 조정
+- \<table\> 등의 간격 조정
