@@ -10,7 +10,7 @@
     <link href="Cedu_SourceCode.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <script language="JavaScript" src="Cedu_SourceCode.js"></script>
-    <script language="JavaScript" src="Cedu_Compiler.js"></script>
+    <script language="JavaScript" src="Cedu_Compile.js"></script>
     <script language="JavaScript" src="Cedu_Execution.js"></script>
     <script>
       $(function () { $(".lined").linedtextarea( { /*selectedLine: 1*/ } ); });
@@ -18,21 +18,23 @@
     </script>
     <script>
       $(document).ready(function() {
-        var compile_source_code, compile_success, 입력창_value, 입력함수_variables;
+        var before_compile_source_code, after_compile_source, compile_success, 입력창_value;
         var execution_source_code;
 
         var sourceCode_position = $('#소스코드').offset();
         $('#표시화면').css({'top':sourceCode_position.top+'px', 'left':sourceCode_position.left+'px'});
 
         $("#컴파일").click(function() {
-          compile_source_code = $("#소스코드").val();
-          compile_success = compiler(compile_source_code);
+          before_compile_source_code = $("#소스코드").val();
+          var compile_result = compile(before_compile_source_code);
+          after_compile_source = compile_result[0];
+          compile_success = compile_result[1];
         })
 
         $("#실행").click(function() {
           execution_source_code = $("#소스코드").val();
-          if ( compile_success == true && execution_source_code === compile_source_code) {
-              execution(execution_source_code);
+          if ( compile_success == true && execution_source_code === before_compile_source_code) {
+              execution(after_compile_source);
           }
           else {
             $("#출력").text("실행 전에 컴파일을 먼저 수행해주세요.").css('color','red');
@@ -74,9 +76,9 @@
             <textarea class="lined" id="소스코드" style="line-height:20px">
 함수 메인()
 {
-  정수 a,b,c,d;
-  입력(a, b, c d);
-  출력(a,b,c,d);
+  정수 a,b,c,d,e;
+  입력(a, b  , c  ,  d);
+  출력(a,b,c,d,e);
 }
         </textarea>
         </th>
