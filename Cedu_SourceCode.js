@@ -27,7 +27,7 @@ function auto_tab(e) {
 
   // set textarea value to: text before caret + tab + text after caret
   $this.val(value.substring(0, start)
-  + "\t"
+  + "\n"
   + value.substring(end));
 
   // put caret at right position again (add one for the tab)
