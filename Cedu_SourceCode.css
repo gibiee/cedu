@@ -7,6 +7,8 @@
   font-family:'Malgun Gothic';
   font-size:13px;
   font-weight: normal;
+
+  line-height:20px !important;
   white-space:pre;
   color : gray;
   caret-color: black;
@@ -35,7 +37,7 @@
 
   font-family:'Malgun Gothic';
   font-size:13px;
-  line-height: 17px;
+  line-height: 20px;
   white-space:pre;
 
   overflow:hidden;
@@ -55,22 +57,17 @@
 }
 
 #출력 {
-  border:1px blue solid;
+  border:1px #A9A9A9 solid;
 
   width:300px;
   height:300px;
-}
 
-#출력표시 {
-  position : absolute;
-  border:1px red solid;
+  white-space : pre;
+  font-weight : bold;
 
-  white-space:pre;
-  font-weight: bold;
-
-  overflow:auto;
-  width:280px;
-  height:280px;
+  overflow : auto;
+  resize: both;
+  background-color: #EBEBE4;
 }
 
 .ReservedWord_Blue {
