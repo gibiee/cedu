@@ -162,7 +162,7 @@ function equal_type_checking(source_code, 변수들_type)
     can_break = false;
     for(start = equal - 1; start >= 0; start--) {
       if( /\s/.test(source_code[start]) == false ) { can_break = true; }
-      if(can_break == true && /[{}();]/.test(source_code[start]) ) { break; }
+      if(can_break == true && /[\s{}();]/.test(source_code[start]) ) { break; }
     }
     can_break = false;
     for(end = equal + 1; end <= source_code.length; end++) {
@@ -171,7 +171,7 @@ function equal_type_checking(source_code, 변수들_type)
     }
     var str = source_code.substring(start+1,end);
     str = str.replace(/^\s*/,'').replace(/\s*$/,'').split(/\s*=\s*/);
-
+  
     left_type = 변수들_type[str[0]];
     right_type = 변수들_type[str[1]];
 

@@ -17,6 +17,7 @@ function execution(source_code) {
     eval(source_code);
   }
   catch(e) {
+    console.log(e);
     if($('#출력').text() != "") $("#출력").append('\n');
 
     if(e == 'Undefined') {
@@ -86,8 +87,17 @@ function change_code_for(source_code) {
 }
 
 function change_code(source_code) {
-  source_code = source_code.replace(/변수\s+/g, 'var ');
-  source_code = source_code.replace(/함수\s+/g, 'function ');
+
+  var start = -1, end;
+  var change = {  //변수명으로 사용될 시 문제가 있는 예약어들
+    '변수' : 'var',
+    '실수' : 'let',
+    '정수' : 'let',
+    '문자열' : 'let',
+    '문자' : 'let',
+    '함수' : 'function',
+  };
+
   source_code = source_code.replace(/출력\(/g, '$("#출력").append(');
   source_code = source_code.replace(/만약\s*\(/g, 'if(');
   source_code = source_code.replace(/그렇지않으면\s*{/g, 'else {');
@@ -98,15 +108,21 @@ function change_code(source_code) {
   source_code = source_code.replace(/정수\(/g, 'parseInt(');
   source_code = source_code.replace(/의 길이/g, '.length');
 
-  source_code = source_code.replace(/실수\s+/g, 'let ');
-  source_code = source_code.replace(/정수\s+/g, 'let ');
-  source_code = source_code.replace(/문자열\s+/g, 'let ');
-  source_code = source_code.replace(/문자\s+/g, 'let ');
+  for(var i in change) {
+    while(true) {
+      start = source_code.indexOf(i, start+1);
+      if(start == -1) break;
+      end = start + i.length - 1;
 
+      if( (/[\s{}();]/.test(source_code[start-1]) || start == 0) && /[\s{}();]/.test(source_code[end+1]) ) {
+        source_code = source_code.substring(0,start) + change[i] + source_code.substring(end+1, source_code.length);
+      }
+    }
+  }
   source_code = source_code.replace(/줄바꿈\(\);/g, "$('#출력').append('\\n');");
 
   source_code += "\n메인();";
-  source_code += "\n\nfunction null_check(value,str) {\n if(value == undefined || value == null) {\n err_value = str;\n throw 'Undefined'\n }\n}";
+  source_code += "\n\nfunction null_check(value,str) {\n if(value == undefined || value == null) {\n  err_value = str;\n  throw 'Undefined'\n }\n}";
 
   return source_code;
 }
