@@ -2,8 +2,6 @@ function execution(source_code) {
 
   $("#출력").text('').css('color','black'); //출력박스 초기화
 
-  //source_code = change_code_input(source_code, 입력창_value);
-
   source_code = check_출력_undefined(source_code);  //출력 중 undefined 체크
 
   //Cedu 코드를 JavaScript로 바꾸기
@@ -55,11 +53,11 @@ function check_출력_undefined(source_code) {
     value = value.split(",");
     isUndefined = '';
     for (var i in value) {
-      content = value[i].replace(/\s/g,'');
+      content = value[i].replace(/^\s/,'').replace(/\s$/,'');
       isUndefined += " null_check(" + content + ", '" + content + "');";
     }
     end = source_code.indexOf(';', end);
-    source_code = source_code.substring(0,end+1) + isUndefined + source_code.substring(end+1, source_code.length);
+    source_code = source_code.substring(0, end+1) + isUndefined + source_code.substring(end+1, source_code.length);
   }
   return source_code;
 }

@@ -25,13 +25,21 @@ function auto_tab(e) {
   var $this = $(this);
   var value = $this.val();
 
+  var str = value.substring(0, start);
+  var left = ( str.match(/{/g) || [] ).length;
+  var right = ( str.match(/[}]/g) || [] ).length;
+  var count = left - right;
+  if(count < 0) count = 0;
+  var tab_count = '';
+  for(var i=0; i<count; i++) {  tab_count += '\t'; }
+
   // set textarea value to: text before caret + tab + text after caret
   $this.val(value.substring(0, start)
-  + "\n"
+  + "\n" + tab_count
   + value.substring(end));
 
   // put caret at right position again (add one for the tab)
-  this.selectionStart = this.selectionEnd = start + 1;
+  this.selectionStart = this.selectionEnd = start + 1 + count;
 
   // prevent the focus lose
   e.preventDefault();
