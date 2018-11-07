@@ -29,7 +29,7 @@
           var compile_result = compile(before_compile_source_code);
           after_compile_source = compile_result[0];
           compile_success = compile_result[1];
-        })
+        });
 
         $("#실행").click(function() {
           execution_source_code = $("#소스코드").val();
@@ -37,13 +37,12 @@
               execution(after_compile_source);
           }
           else {
-            $("#출력").text("실행 전에 컴파일을 먼저 수행해주세요.").css('color','red');
+            $("#출력").text("실행 전에 먼저 컴파일을 수행해주세요.").css('color','red');
           }
-
-        })
+        });
 
         $("#디버그").click(function() {
-        })
+        });
 
         $("#소스코드").bind('keydown', function(event) {
           if(event.keyCode == 9 ) { useTab.call(this, event); }

@@ -12,6 +12,7 @@ function compile(source_code) {
   if( source_code == false ) return false;
 
   var 변수들_type = get_variables_type(source_code); //선언된 변수들의 자료형 저장
+  if( 변수들_type == false ) return false;
   if( equal_type_checking(source_code, 변수들_type) == false )  return false;  //고정 자료형 체크
 
   $("#출력").append("컴파일 성공!").css('color','blue');
@@ -138,11 +139,17 @@ function get_variables_type(source_code) {
 
       str = source_code.substring(start,end).split(',');
       for(var j in str) {
-        str[j] = str[j].replace(/\s/g,'');
+        str[j] = str[j].replace(/^\s/,'').replace(/\s$/,'');
+        if(/\s/.test(str[j])) {
+          var result = "<span style='color:red'>오류 : 변수명에 공백이 있습니다.\n</span>";
+          $('#출력').append(result);
+          return false;
+        }
         type[str[j]] = 변수종류[i];
       }
     }
   }
+  console.log(type);
   return type;
 }
 
@@ -171,7 +178,7 @@ function equal_type_checking(source_code, 변수들_type)
     }
     var str = source_code.substring(start+1,end);
     str = str.replace(/^\s*/,'').replace(/\s*$/,'').split(/\s*=\s*/);
-  
+
     left_type = 변수들_type[str[0]];
     right_type = 변수들_type[str[1]];
 

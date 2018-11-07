@@ -21,18 +21,19 @@ function execution(source_code) {
     if($('#출력').text() != "") $("#출력").append('\n');
 
     if(e == 'Undefined') {
-      var result = "<span style='color:red'>오류 : 변수 " + err_value + "의 출력은 값이 없습니다.\n</span>";
+      var result = "<span style='color:orange'>경고 : 변수 " + err_value + "의 출력은 값이 없습니다.\n</span>";
       $("#출력").append(result);
     }
     else {
       var err_lineNo = Number(error_line_check(e.stack));
       if( isNaN(err_lineNo) ) {
         var result = "<span style='color:red'>오류 : 예기치 않은 오류 발생!\n</span>"
-      }
+        }
       else {
         var result = "<span style='color:red'>오류 : " + err_lineNo +"번째 줄에서 예기치 않은 오류 발생!\n</span>"
       }
       $("#출력").append(result);
+      return false;
     }
   }
   return true;
@@ -96,16 +97,19 @@ function change_code(source_code) {
     '문자열' : 'let',
     '문자' : 'let',
     '함수' : 'function',
+    '참' : 'true',
+    '거짓' : 'false'
   };
 
-  source_code = source_code.replace(/출력\(/g, '$("#출력").append(');
+  source_code = source_code.replace(/출력\s*\(/g, '$("#출력").append(');
   source_code = source_code.replace(/만약\s*\(/g, 'if(');
   source_code = source_code.replace(/그렇지않으면\s*{/g, 'else {');
   source_code = source_code.replace(/그렇지않다면\s*{/g, 'else {');
-  source_code = source_code.replace(/반복\(/g, 'for(');
+  source_code = source_code.replace(/반복\s*\(/g, 'for(');
   source_code = source_code.replace(/계속;/g, 'continue;');
   source_code = source_code.replace(/그만;/g, 'break;');
-  source_code = source_code.replace(/정수\(/g, 'parseInt(');
+
+  source_code = source_code.replace(/정수\s*\(/g, 'parseInt(');
   source_code = source_code.replace(/의 길이/g, '.length');
 
   for(var i in change) {
