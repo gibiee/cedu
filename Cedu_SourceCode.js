@@ -1,4 +1,4 @@
-function useTab(e) {
+function key_event(e) {
   // get caret position/selection
   var start = this.selectionStart;
   var end = this.selectionEnd;
@@ -6,41 +6,49 @@ function useTab(e) {
   var $this = $(this);
   var value = $this.val();
 
-  // set textarea value to: text before caret + tab + text after caret
-  $this.val(value.substring(0, start)
-  + "\t"
-  + value.substring(end));
+  if(e.keyCode == 9) {  //텍스트상자에서 Tab키를 사용 가능하게
+    // set textarea value to: text before caret + tab + text after caret
+    $this.val(value.substring(0, start) + "\t" + value.substring(end));
 
-  // put caret at right position again (add one for the tab)
-  this.selectionStart = this.selectionEnd = start + 1;
+    // put caret at right position again (add one for the tab)
+    this.selectionStart = this.selectionEnd = start + 1;
+  }
+  else if(e.keyCode == 13) {  //엔터 시 자동 들여쓰기
+    var str = value.substring(0, start);
+    var left = ( str.match(/{/g) || [] ).length;
+    var right = ( str.match(/[}]/g) || [] ).length;
+    var count = left - right;
+    if(count < 0) count = 0;
+    var tab_count = '';
+    for(var i=0; i<count; i++) {  tab_count += '\t'; }
 
-  // prevent the focus lose
-  e.preventDefault();
-}
+    $this.val(value.substring(0, start) + "\n" +
+    tab_count + value.substring(end));
 
-function auto_tab(e) {
-  var start = this.selectionStart;
-  var end = this.selectionEnd;
+    this.selectionStart = this.selectionEnd = start + 1 + count;
 
-  var $this = $(this);
-  var value = $this.val();
+    if( end == value.length) {  //코드의 끝에서 엔터를 쳤을 때
+      var m = $(this);
+      m.scrollTop(m[0].scrollHeight);
+    }
+  }
+  else if(e.keyCode == 221) { //}으로 닫을 때 자동 들여쓰기 1칸 제거
+    var blank_count = 0;
+    for(var i = start-1; i>=0; i--) {
+      if(value[i] == '\n') break;
+      else if(/\s/.test(value[i]))  blank_count++;
+      else break;
+    }
+    if(blank_count >= 1) {
+      $this.val(value.substring(0, start-1) + "}" + value.substring(end));
+      this.selectionStart = this.selectionEnd = start;
+    }
+    else {
+      $this.val(value.substring(0, start) + "}" + value.substring(end));
+      this.selectionStart = this.selectionEnd = start + 1;
+    }
 
-  var str = value.substring(0, start);
-  var left = ( str.match(/{/g) || [] ).length;
-  var right = ( str.match(/[}]/g) || [] ).length;
-  var count = left - right;
-  if(count < 0) count = 0;
-  var tab_count = '';
-  for(var i=0; i<count; i++) {  tab_count += '\t'; }
-
-  // set textarea value to: text before caret + tab + text after caret
-  $this.val(value.substring(0, start)
-  + "\n" + tab_count
-  + value.substring(end));
-
-  // put caret at right position again (add one for the tab)
-  this.selectionStart = this.selectionEnd = start + 1 + count;
-
+  }
   // prevent the focus lose
   e.preventDefault();
 }
