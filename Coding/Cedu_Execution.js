@@ -108,7 +108,7 @@ function change_code(source_code) {
   source_code = source_code.replace(/그만;/g, 'break;');
 
   source_code = source_code.replace(/정수\s*\(/g, 'parseInt(');
-  source_code = source_code.replace(/의 길이/g, '.length');
+  source_code = source_code.replace(/.길이/g, '.length');
 
   for(var i in change) {
     while(true) {

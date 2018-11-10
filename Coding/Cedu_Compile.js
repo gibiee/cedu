@@ -7,6 +7,8 @@ function compile(source_code) {
   if( count_small(source_code) == false ) return false; //소괄호 개수 세기
   if( count_big(source_code) == false ) return false; //대괄호 괄호 세기
 
+  if ( each_line_check(source_code) == false ) return false;
+
   입력창_value = get_입력창_value();  //입력값의 값들 가져오기
   source_code = change_code_input(source_code); //입력() 에 대해서만 코드 바꾸기(고정 자료형 체크를 하기 위해)
   if( source_code == false ) return false;
@@ -40,6 +42,30 @@ function count_big(source_code) {
   var left_big = ( source_code.match(/\[/g) || [] ).length;
   var right_big = ( source_code.match(/\]/g) || [] ).length;
   if( left_big != right_big ) { $("#출력").text("오류 : 대괄호의 '[', ']'의 개수가 서로 맞지 않습니다!").css('color','red');return false; }
+  return true;
+}
+
+function each_line_check(source_code) {
+  var each_line = source_code.split('\n');
+
+  for(var i in each_line) {
+    if( /[;{}]/.test(each_line[i])) continue;
+    else if( each_line[i].indexOf('반복') != -1 ) continue;
+    else if( each_line[i].indexOf('만약') != -1 ) continue;
+    else if( each_line[i].indexOf('그렇지않으면') != -1 ) continue;
+    else if( each_line[i].indexOf('그렇지않다면') != -1 ) continue;
+    else if (each_line[i].indexOf('함수') != -1) continue;
+    else {
+      for(var one in each_line[i]) {
+        if(/\s/.test(each_line[i][one]) == false ) {
+          console.log(each_line[i]);
+          var result = "<span style='color:red'>오류 : 세미콜론(;)이 빠진 줄이 있는지 확인하십시오.</span>\n"
+          $('#출력').append(result);
+          return false;
+        }
+      }
+    }
+  }
   return true;
 }
 
@@ -149,7 +175,6 @@ function get_variables_type(source_code) {
       }
     }
   }
-  console.log(type);
   return type;
 }
 

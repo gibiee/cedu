@@ -1,0 +1,67 @@
+<html>
+<head>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <style>
+  table {
+    height:15%;
+    border:1px solid #444444;
+    border-collapse:collapse;
+  }
+  th, td {
+    border:1px solid #444444;
+    text-align:center;
+    font-size:15px;
+  }
+  th {
+    font-size:18px;
+  }
+  </style>
+  <script>
+    $(document).ready(function() {
+      var 제출_count = 0;
+      var 맞은_count = 0;
+      var 틀린_count = 0;
+      var 정답_percent = Math.floor(맞은_count / 제출_count * 100);
+
+
+      $('#1_4').html(제출_count);
+    });
+  </script>
+</head>
+<body>
+  <table>
+    <tr>
+      <th width="50px">번호</th>
+      <th width="400px">문제명</th>
+      <th width="120px">난이도</th>
+      <th width="100px">제출한 사람</th>
+      <th width="100px">맞은 사람</th>
+      <th width="100px">틀린 사람</th>
+      <th width="100px">정답률</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td><a href="1.html">두 수를 더하기</a></td>
+      <td id="1_3">☆</td>
+      <td id="1_4"></td>
+      <td id="1_5"></td>
+      <td id="1_6"></td>
+      <td id="1_7">%</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>두 수를 빼기</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>%</td>
+
+    </tr>
+
+  </table>
+</body>
+</html>
