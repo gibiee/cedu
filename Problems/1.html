@@ -1,67 +1,176 @@
 <html>
 <head>
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+
+  <script src=".\Problems_Coding\LinedTextarea\jquery-linedtextarea.js"></script>
+  <link href=".\Problems_Coding\LinedTextarea\jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
+
+  <link href="./Problems_Coding/problems.css" type="text/css" rel="stylesheet" />
+  <link href="./Problems_Coding/SourceCode.css" type="text/css" rel="stylesheet" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+  <script language="JavaScript" src="./Problems_Coding/SourceCode.js"></script>
+  <script language="JavaScript" src="./Problems_Coding/Compile.js"></script>
+  <script language="JavaScript" src="./Problems_Coding/Execution.js"></script>
+  <script>
+    $(function () { $(".lined").linedtextarea( { /*selectedLine: 1*/ } ); });
+  </script>
+  <script>
+    $(document).ready(function() {
+      var before_compile_source_code, after_compile_source, compile_success, 입력창_value;
+      var execution_source_code;
+      var 제출코드 = false;
 
-  <link href="problems.css" type="text/css" rel="stylesheet" />
+      var sourceCode_position = $('#소스코드').offset();
+      $('#표시화면').css({'top':sourceCode_position.top+'px', 'left':sourceCode_position.left+'px'});
+
+      $("#컴파일").click(function() {
+        before_compile_source_code = $("#소스코드").val();
+        var compile_result = compile(before_compile_source_code);
+        after_compile_source = compile_result[0];
+        compile_success = compile_result[1];
+      });
+
+      $("#실행").click(function() {
+        execution_source_code = $("#소스코드").val();
+        if ( compile_success == true && execution_source_code === before_compile_source_code) {
+            제출코드 = execution(after_compile_source);
+        }
+        else {
+          $("#출력").text("실행 전에 컴파일을 먼저 수행해주세요.").css('color','red');
+        }
+      });
+
+      $("#디버그").click(function() {
+      });
+
+      $("#소스코드").bind('keydown', function(event) {
+        if(event.keyCode == 9 || event.keyCode == 13 || event.keyCode == 221) {
+          key_event.call(this, event);
+        }
+        reservedWord_color( $('#소스코드').val() );
+      });
+      $("#소스코드").bind('keyup', function(event) {
+        reservedWord_color( $('#소스코드').val() );
+      });
+      $('#소스코드').scroll( function() {
+        shareScroll();
+      });
+      $('#제출').click(function () {
+        if(제출코드 == false) {
+          //alert('실행을 성공적으로 수행한 후 제출해주세요.');
+        }
+        else {
+        }
+        var origin_입력 = $("#입력").val();
+        var origin_출력 = $("#출력").text();
+
+        var 채점_데이터 = ["0 0", "1 2", "9 9", "279 93", "2349 93941",
+                          "-1 0", "0 -1", "-1 -1", "111 -93", "-93 247"];
+        var 채점_결과 = [0, 3, 18, 372, 96290, -1, -1, -2, 18, 154];
+        var 결과 = [false, false, false, false, false, false, false, false, false, false];
+
+        for(var i = 0; i < 10; i++) {
+          $('#입력').val(채점_데이터[i]);
+          $('#컴파일').trigger('click');
+          $('#실행').trigger('click');
+
+          결과[i] = ( $('#출력').text() == 채점_결과[i] );
+        }
+        $('#입력').val(origin_입력);
+        $('#출력').text(origin_출력);
+        console.log(결과);
+        window.open("./1_score.html","채점 결과",'width=500, height=500');
+        //결과를 1_score에 보내주면 된다!
+      });
+    });
+  </script>
 </head>
-<script>
-  $(document).ready(function () {
-    //제출 버튼을 눌렀을 때 서버와 상호작용?
-  });
-</script>
-<body style="margin:80px">
-  <h1>1번 문제.</h1><br>
-  두 정수를 입력받아 그 합을 출력하시오.
+<body style="margin:20px;margin-left:40px">
+  <section class="문제">
+    <h1>1번 문제.</h1><br>
+    두 정수를 입력받아 그 합을 출력하시오.
 
-  <div class="box">
-    <button class="btn btn-success" style="float:right">코드 제출하기</button>
     <br><br><br>
-    <textarea placeholder="코딩한 소스코드를 여기에 붙여넣어주세요."></textarea>
-  </div>
-  <br><br><br>
 
-  예제 1.
-  <div><table>
-    <tr>
-      <th>입력</th>
-    </tr>
-    <tr>
-      <td>5 10</td>
-    </tr>
-  </table></div>
+    예제 1.
+    <span class="예제"><table class="예제t">
+      <tr>
+        <th>입력</th>
+      </tr>
+      <tr>
+        <td>5 10</td>
+      </tr>
+    </table></span>
 
-  <div><table>
-    <tr>
-      <th>출력</th>
-    </tr>
-    <tr>
-      <td>15</td>
-    </tr>
-  </table></div>
+    <span class="예제"><table class="예제t">
+      <tr>
+        <th>출력</th>
+      </tr>
+      <tr>
+        <td>15</td>
+      </tr>
+    </table></span>
 
-  <br><br>
+    <br><br>
 
-  예제 2.
-  <div><table class="입력">
-    <tr>
-      <th>입력</th>
-    </tr>
-    <tr>
-      <td>12 -3</td>
-    </tr>
-  </table></div>
+    예제 2.
+    <span class="예제"><table class="예제t">
+      <tr>
+        <th>입력</th>
+      </tr>
+      <tr>
+        <td>12 -3</td>
+      </tr>
+    </table></span>
 
-  <div><table>
-    <tr>
-      <th>출력</th>
-    </tr>
-    <tr>
-      <td>9</td>
-    </tr>
-  </table></div>
+    <span class="예제"><table class="예제t">
+      <tr>
+        <th>출력</th>
+      </tr>
+      <tr>
+        <td>9</td>
+      </tr>
+    </table></span>
+
+    <br><br>
+    <button id="제출" class="btn btn-info btn-lg" style="margin-left:150px">코드 제출하기</button>
+  </section>
+
+  <section class="제출코딩" style="border-left: 1px solid gray">
+    <div style="margin-left:50px">
+    <button class="btn btn-warning">자동 줄 정렬</button>
+    <button id="컴파일" class="btn btn-primary" style="margin-left:150px">컴파일</button>
+    <button id="실행" class="btn btn-success">실행</button>
+    <button id="디버그" class="btn btn-danger">디버그</button>
+    </div><br/>
+    <table style="margin-left:50px">
+      <tr>
+        <th rowspan="2">
+          <div align="left">소스코드</div>
+            <textarea class="lined" id="소스코드" style="line-height:20px">
+함수 메인()
+{
+  정수 a,b;
+  입력(a,b);
+  출력(a+b);
+}
+        </textarea>
+        </th>
+        <th>
+          <div style="margin-left:50px">입력</div>
+          <textarea id="입력" style="margin-left:50px">10</textarea>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <div align="left" style="margin-left:50px">출력</div>
+          <div id='출력' style="margin-left:50px"></div>
+        </th>
+      </tr>
+    </table>
+    <div contenteditable="true" id="표시화면"></div>
+  </section>
 </body>
 </html>

@@ -6,10 +6,11 @@ Using...
 - HTML
 - CSS
 - JavaScript
-- OpenSource : jQuery, 부트스트랩...
+- OpenSource : jQuery, 부트스트랩, LinedTextarea
 
 ### NEXT
 - 문제 출제 및 채점 시스템 서버 구축
+(1.html 에서 결과 보내주기)
 
 에디터 기능은 나중에 손보고
 서버 기능부터 추가하자
