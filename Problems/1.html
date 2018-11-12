@@ -4,15 +4,15 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 
-  <script src=".\Problems_Coding\LinedTextarea\jquery-linedtextarea.js"></script>
-  <link href=".\Problems_Coding\LinedTextarea\jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
+  <script src="..\Coding\LinedTextarea\jquery-linedtextarea.js"></script>
+  <link href="..\Coding\LinedTextarea\jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
 
   <link href="./Problems_Coding/problems.css" type="text/css" rel="stylesheet" />
-  <link href="./Problems_Coding/SourceCode.css" type="text/css" rel="stylesheet" />
+  <link href="../Coding/Cedu_SourceCode.css" type="text/css" rel="stylesheet" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-  <script language="JavaScript" src="./Problems_Coding/SourceCode.js"></script>
-  <script language="JavaScript" src="./Problems_Coding/Compile.js"></script>
-  <script language="JavaScript" src="./Problems_Coding/Execution.js"></script>
+  <script language="JavaScript" src="../Coding/Cedu_SourceCode.js"></script>
+  <script language="JavaScript" src="../Coding/Cedu_Compile.js"></script>
+  <script language="JavaScript" src="../Coding/Cedu_Execution.js"></script>
   <script>
     $(function () { $(".lined").linedtextarea( { /*selectedLine: 1*/ } ); });
   </script>
@@ -81,8 +81,8 @@
         $('#입력').val(origin_입력);
         $('#출력').text(origin_출력);
         console.log(결과);
-        window.open("./1_score.html","채점 결과",'width=500, height=500');
-        //결과를 1_score에 보내주면 된다!
+        window.open("./score.html","채점 결과",'width=500, height=500');
+        //결과를 score에 보내주면 된다!
       });
     });
   </script>

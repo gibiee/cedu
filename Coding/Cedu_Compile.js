@@ -1,4 +1,5 @@
 function compile(source_code) {
+
   $("#출력").text('').css('color','black'); //출력박스 초기화
 
   if(source_code.search("함수 메인()") == -1) { $("#출력").text("오류 : 메인 함수가 없습니다!").css('color','red');return; }
@@ -109,6 +110,7 @@ function change_code_input(source_code) {
   var in_variable = [];
   var index = 0;
   var change_str, str;
+  var 입력변수개수 = 0;
 
   while (true) {
     start = source_code.indexOf('입력(', start+1);
@@ -120,7 +122,8 @@ function change_code_input(source_code) {
     str = '';
     for(var i in in_variable) {
       in_variable[i] = in_variable[i].replace(/^\s*/g, '').replace(/\s*$/g, '');
-      //if( in_variable[i] )
+      입력변수개수++;
+
       if(typeof 입력창_value[index] == "number") { str += in_variable[i] + " = " + 입력창_value[index++] + ";"; }
       else { str += in_variable[i] + " = " + "'" + 입력창_value[index++] + "'" + ";"; }
     }
@@ -129,13 +132,13 @@ function change_code_input(source_code) {
     source_code = source_code.replace(change_str, str);
   }
 
-  if(in_variable.length > 0) {
-    if(in_variable.length > 입력창_value.length) {
+  if(입력변수개수 > 0) {
+    if(입력변수개수 > 입력창_value.length) {
       var result = "<span style='color:red'>오류 : 입력 값이 충분하지 않습니다.\n</span>";
       $('#출력').append(result);
       return false;
     }
-    else if(in_variable.length != 입력창_value.length) {
+    else if(입력변수개수 != 입력창_value.length) {
       var result = "<span style='color:orange'>경고 : 입력 값을 받을 변수의 수가 입력 값의 수보다 더 많습니다.\n</span>";
       $('#출력').append(result);
     }
