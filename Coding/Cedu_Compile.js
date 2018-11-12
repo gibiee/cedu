@@ -96,12 +96,12 @@ function type_checking(value) {
     else {  // 실수 또는 정수
       int_check = parseInt(value);
       if(number_check == int_check) { return '정수'; }
-      else { return '실수' }
+      else { return '실수'; }
     }
   }
-  catch { //문자 또는 문자열인 경우
-    if(value.length == 1) { return '문자' }
-    else { return '문자열' }
+  catch (e) { //문자 또는 문자열인 경우
+    if(value.length == 1) { return '문자'; }
+    else { return '문자열'; }
   }
 }
 
