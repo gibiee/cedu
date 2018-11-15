@@ -1,29 +1,30 @@
 function compile() {
 
-  alert(source_code);
   $("#출력").text('').css('color','black'); //출력박스 초기화
 
   if(source_code.search("함수 메인()") == -1) { $("#출력").text("오류 : 메인 함수가 없습니다!").css('color','red');return; }
 
-  if( 중괄호_세기(source_code) == false ) return false; //중괄호 괄호 세기
-  if( 소괄호_세기(source_code) == false ) return false; //소괄호 개수 세기
-  if( 대괄호_세기(source_code) == false ) return false; //대괄호 괄호 세기
+  if( 중괄호_세기() == false ) return false; //중괄호 괄호 세기
+  if( 소괄호_세기() == false ) return false; //소괄호 개수 세기
+  if( 대괄호_세기() == false ) return false; //대괄호 괄호 세기
 
-  if ( 줄마다_check(source_code) == false ) return false;
+  if ( 줄마다_check() == false ) return false;
 
   입력값 = 입력값_얻기();  //입력값의 값들 가져오기
-  source_code = 입력_코드바꾸기(source_code); //입력() 에 대해서만 코드 바꾸기(고정자료형 체크를 하기 위해)
-  if( source_code == false ) return false;  //입력값이 충분하지 않으면
 
-  var 변수자료형 = 변수자료형_얻기(source_code); //선언된 변수들의 자료형 저장
+  if( 코드바꾸기_입력() == false ) return false;  //입력() 에 대해서만 코드 바꾸기(고정자료형 체크를 하기 위해)
+                                                //입력값이 충분하지 않으면 return false
+
+  var 변수자료형 = 변수자료형_얻기(); //선언된 변수들의 자료형 저장
   if( 변수자료형 == false ) return false;
-  if( 같은자료형인지_check(source_code, 변수자료형) == false )  return false;  //고정 자료형 체크
+  if( 같은자료형인지_check(변수자료형) == false )  return false;  //고정 자료형 체크
 
   $("#출력").append("컴파일 성공!").css('color','blue');
-  return [source_code, true];
+
+  return true;
 }
 
-function 중괄호_세기(source_code) {
+function 중괄호_세기() {
   var left_medium = ( source_code.match(/{/g) || [] ).length;
   var right_medium = ( source_code.match(/}/g) || [] ).length;
   if( left_medium == 0 ) { $("#출력").text("오류 : 중괄호 '{' 가 없습니다!").css('color','red');return false; }
@@ -31,7 +32,7 @@ function 중괄호_세기(source_code) {
   else if( left_medium != right_medium ) { $("#출력").text("오류 : 중괄호의 '{', '}'의 개수가 서로 맞지 않습니다!").css('color','red');return false; }
   return true;
 }
-function 소괄호_세기(source_code) {
+function 소괄호_세기() {
   var left_small = ( source_code.match(/\(/g) || [] ).length;
   var right_small = ( source_code.match(/\)/g) || [] ).length;
   if( left_small == 0 ) { $("#출력").text("오류 : 소괄호 '(' 가 없습니다!").css('color','red');return false; }
@@ -40,14 +41,14 @@ function 소괄호_세기(source_code) {
   return true;
 }
 
-function 대괄호_세기(source_code) {
+function 대괄호_세기() {
   var left_big = ( source_code.match(/\[/g) || [] ).length;
   var right_big = ( source_code.match(/\]/g) || [] ).length;
   if( left_big != right_big ) { $("#출력").text("오류 : 대괄호의 '[', ']'의 개수가 서로 맞지 않습니다!").css('color','red');return false; }
   return true;
 }
 
-function 줄마다_check(source_code) {
+function 줄마다_check() {
   var each_line = source_code.split('\n');
 
   for(var i in each_line) {
@@ -106,12 +107,12 @@ function type_checking(value) {
   }
 }
 
-function 입력_코드바꾸기(source_code) {
+function 코드바꾸기_입력() {
   var start = -1, end;
   var in_variable = [];
   var index = 0;
   var change_str, str;
-  var 입력변수개수 = 0;
+  var 입력받을변수개수 = 0;
 
   while (true) {
     start = source_code.indexOf('입력(', start+1);
@@ -123,7 +124,7 @@ function 입력_코드바꾸기(source_code) {
     str = '';
     for(var i in in_variable) {
       in_variable[i] = in_variable[i].replace(/^\s*/g, '').replace(/\s*$/g, '');
-      입력변수개수++;
+      입력받을변수개수++;
 
       if(typeof 입력값[index] == "number") { str += in_variable[i] + " = " + 입력값[index++] + ";"; }
       else { str += in_variable[i] + " = " + "'" + 입력값[index++] + "'" + ";"; }
@@ -133,21 +134,21 @@ function 입력_코드바꾸기(source_code) {
     source_code = source_code.replace(change_str, str);
   }
 
-  if(입력변수개수 > 0) {
-    if(입력변수개수 > 입력값.length) {
+  if(입력받을변수개수 > 0) {
+    if(입력받을변수개수 > 입력값.length) {
       var result = "<span style='color:red'>오류 : 입력 값이 충분하지 않습니다.\n</span>";
       $('#출력').append(result);
       return false;
     }
-    else if(입력변수개수 != 입력값.length) {
+    else if(입력받을변수개수 != 입력값.length) {
       var result = "<span style='color:orange'>경고 : 입력 값을 받을 변수의 수가 입력 값의 수보다 더 많습니다.\n</span>";
       $('#출력').append(result);
     }
   }
-  return source_code;
+  return true;
 }
 
-function 변수자료형_얻기(source_code) {
+function 변수자료형_얻기() {
   var 변수종류 = [ '변수', '실수', '정수', '문자', '문자열' ];
   var start = -1 , end;
   var end_1, end_2;
@@ -182,7 +183,7 @@ function 변수자료형_얻기(source_code) {
   return type;
 }
 
-function 같은자료형인지_check(source_code, 변수자료형)
+function 같은자료형인지_check(변수자료형)
 {
   var equal = -1;
   var start, end;

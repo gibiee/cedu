@@ -1,12 +1,12 @@
-function execution(source_code) {
+function execution() {
 
   $("#출력").text('').css('color','black'); //출력박스 초기화
 
-  source_code = 빈값_check(source_code);  //출력 중 undefined 체크
+  빈값_check();  //출력 중 undefined 체크
 
   //Cedu 코드를 JavaScript로 바꾸기
-  source_code = 반복_코드바꾸기(source_code);
-  source_code = 코드바꾸기(source_code);
+  코드바꾸기_반복();
+  코드바꾸기();
 
   try {
     var err_value;
@@ -37,7 +37,7 @@ function execution(source_code) {
   return true;
 }
 
-function 빈값_check(source_code) {
+function 빈값_check() {
   var start = -1
   var in_start, end;
   var content;
@@ -59,10 +59,10 @@ function 빈값_check(source_code) {
     end = source_code.indexOf(';', end);
     source_code = source_code.substring(0, end+1) + isUndefined + source_code.substring(end+1, source_code.length);
   }
-  return source_code;
+  return true;
 }
 
-function 반복_코드바꾸기(source_code) {
+function 코드바꾸기_반복() {
   var start = -1, in_start;
   var end;
   var temp_substr;
@@ -82,10 +82,10 @@ function 반복_코드바꾸기(source_code) {
       source_code = source_code.replace(temp_str, "for(var " + i_for + " = 0; " + i_for + " < " + in_variable + "; " + i_for + "++)");
     }
   }
-  return source_code;
+  return true;
 }
 
-function 코드바꾸기(source_code) {
+function 코드바꾸기() {
 
   var start = -1, end;
   var change = {  //변수명으로 사용될 시 문제가 있는 예약어들
@@ -126,7 +126,7 @@ function 코드바꾸기(source_code) {
   source_code += "\n메인();";
   source_code += "\n\nfunction null_check(value,str) {\n if(value == undefined || value == null) {\n  err_value = str;\n  throw 'Undefined'\n }\n}";
 
-  return source_code;
+  return true;
 }
 
 function error_line_check(error_stack)

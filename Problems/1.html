@@ -9,15 +9,15 @@
   <link href="./problems.css" type="text/css" rel="stylesheet" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
   <script>
+    var 결과 = [false, false, false, false, false, false, false, false, false, false];
     $(document).ready(function() {
       $('#제출').click(function () {
         var origin_입력 = $("#입력").val();
-        var origin_출력 = $("#출력").text();
+        var origin_출력 = $("#출력").html();
 
         var 채점_데이터 = ["0 0", "1 2", "9 9", "279 93", "2349 93941",
                           "-1 0", "0 -1", "-1 -1", "111 -93", "-93 247"];
         var 채점_결과 = [0, 3, 18, 372, 96290, -1, -1, -2, 18, 154];
-        var 결과 = [false, false, false, false, false, false, false, false, false, false];
 
         for(var i = 0; i < 10; i++) {
           $('#프레임').contents().find('#입력').val(채점_데이터[i]);
@@ -27,10 +27,10 @@
           결과[i] = ( $('#프레임').contents().find('#출력').text() == 채점_결과[i] );
         }
         $('#프레임').contents().find('#입력').val(origin_입력);
-        $('#프레임').contents().find('#출력').text(origin_출력);
+        $('#프레임').contents().find('#출력').html(origin_출력);
+        
         console.log(결과);
         window.open("./score.html","채점 결과",'width=500, height=500');
-        //결과를 score에 보내주면 된다!
       });
     });
   </script>
