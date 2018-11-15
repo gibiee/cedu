@@ -1,5 +1,6 @@
-function compile(source_code) {
+function compile() {
 
+  alert(source_code);
   $("#출력").text('').css('color','black'); //출력박스 초기화
 
   if(source_code.search("함수 메인()") == -1) { $("#출력").text("오류 : 메인 함수가 없습니다!").css('color','red');return; }
