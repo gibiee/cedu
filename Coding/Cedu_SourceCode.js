@@ -53,12 +53,12 @@ function key_event(e) {
   e.preventDefault();
 }
 
-function shareScroll() {
+function 스크롤공유() {
   $('#표시화면').scrollTop( $('#소스코드').scrollTop() );
   $('#표시화면').scrollLeft( $('#소스코드').scrollLeft() );
 }
 
-function reservedWord_color(source_code) {
+function 예약어_color(source_code) {
 
   var word_list_blue = ["만약", "그렇지않으면", "그렇지않다면", "반복"];
   var word_list_purple = ["변수", "함수", "실수", "정수", "문자", "문자열"];

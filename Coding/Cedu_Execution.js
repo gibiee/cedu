@@ -2,11 +2,11 @@ function execution(source_code) {
 
   $("#출력").text('').css('color','black'); //출력박스 초기화
 
-  source_code = check_출력_undefined(source_code);  //출력 중 undefined 체크
+  source_code = 빈값_check(source_code);  //출력 중 undefined 체크
 
   //Cedu 코드를 JavaScript로 바꾸기
-  source_code = change_code_for(source_code);
-  source_code = change_code(source_code);
+  source_code = 반복_코드바꾸기(source_code);
+  source_code = 코드바꾸기(source_code);
 
   try {
     var err_value;
@@ -37,7 +37,7 @@ function execution(source_code) {
   return true;
 }
 
-function check_출력_undefined(source_code) {
+function 빈값_check(source_code) {
   var start = -1
   var in_start, end;
   var content;
@@ -62,7 +62,7 @@ function check_출력_undefined(source_code) {
   return source_code;
 }
 
-function change_code_for(source_code) {
+function 반복_코드바꾸기(source_code) {
   var start = -1, in_start;
   var end;
   var temp_substr;
@@ -85,7 +85,7 @@ function change_code_for(source_code) {
   return source_code;
 }
 
-function change_code(source_code) {
+function 코드바꾸기(source_code) {
 
   var start = -1, end;
   var change = {  //변수명으로 사용될 시 문제가 있는 예약어들

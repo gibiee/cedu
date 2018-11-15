@@ -4,14 +4,14 @@ function compile(source_code) {
 
   if(source_code.search("함수 메인()") == -1) { $("#출력").text("오류 : 메인 함수가 없습니다!").css('color','red');return; }
 
-  if( count_medium(source_code) == false ) return false;  //중괄호 괄호 세기
-  if( count_small(source_code) == false ) return false; //소괄호 개수 세기
-  if( count_big(source_code) == false ) return false; //대괄호 괄호 세기
+  if( 중괄호_세기(source_code) == false ) return false;  //중괄호 괄호 세기
+  if( 소괄호_세기(source_code) == false ) return false; //소괄호 개수 세기
+  if( 대괄호_세기(source_code) == false ) return false; //대괄호 괄호 세기
 
-  if ( each_line_check(source_code) == false ) return false;
+  if ( 줄마다_check(source_code) == false ) return false;
 
-  입력창_value = get_입력창_value();  //입력값의 값들 가져오기
-  source_code = change_code_input(source_code); //입력() 에 대해서만 코드 바꾸기(고정 자료형 체크를 하기 위해)
+  입력값 = 입력값_얻기();  //입력값의 값들 가져오기
+  source_code = 입력_코드바꾸기(source_code); //입력() 에 대해서만 코드 바꾸기(고정 자료형 체크를 하기 위해)
   if( source_code == false ) return false;
 
   var 변수들_type = get_variables_type(source_code); //선언된 변수들의 자료형 저장
@@ -22,7 +22,7 @@ function compile(source_code) {
   return [source_code, true];
 }
 
-function count_medium(source_code) {
+function 중괄호_세기(source_code) {
   var left_medium = ( source_code.match(/{/g) || [] ).length;
   var right_medium = ( source_code.match(/}/g) || [] ).length;
   if( left_medium == 0 ) { $("#출력").text("오류 : 중괄호 '{' 가 없습니다!").css('color','red');return false; }
@@ -30,7 +30,7 @@ function count_medium(source_code) {
   else if( left_medium != right_medium ) { $("#출력").text("오류 : 중괄호의 '{', '}'의 개수가 서로 맞지 않습니다!").css('color','red');return false; }
   return true;
 }
-function count_small(source_code) {
+function 소괄호_세기(source_code) {
   var left_small = ( source_code.match(/\(/g) || [] ).length;
   var right_small = ( source_code.match(/\)/g) || [] ).length;
   if( left_small == 0 ) { $("#출력").text("오류 : 소괄호 '(' 가 없습니다!").css('color','red');return false; }
@@ -39,14 +39,14 @@ function count_small(source_code) {
   return true;
 }
 
-function count_big(source_code) {
+function 대괄호_세기(source_code) {
   var left_big = ( source_code.match(/\[/g) || [] ).length;
   var right_big = ( source_code.match(/\]/g) || [] ).length;
   if( left_big != right_big ) { $("#출력").text("오류 : 대괄호의 '[', ']'의 개수가 서로 맞지 않습니다!").css('color','red');return false; }
   return true;
 }
 
-function each_line_check(source_code) {
+function 줄마다_check(source_code) {
   var each_line = source_code.split('\n');
 
   for(var i in each_line) {
@@ -70,7 +70,7 @@ function each_line_check(source_code) {
   return true;
 }
 
-function get_입력창_value() {
+function 입력값_얻기() {
   var input_array = $('#입력').val().split(/[\s]+/);
   var type;
 
@@ -105,7 +105,7 @@ function type_checking(value) {
   }
 }
 
-function change_code_input(source_code) {
+function 입력_코드바꾸기(source_code) {
   var start = -1, end;
   var in_variable = [];
   var index = 0;
@@ -124,8 +124,8 @@ function change_code_input(source_code) {
       in_variable[i] = in_variable[i].replace(/^\s*/g, '').replace(/\s*$/g, '');
       입력변수개수++;
 
-      if(typeof 입력창_value[index] == "number") { str += in_variable[i] + " = " + 입력창_value[index++] + ";"; }
-      else { str += in_variable[i] + " = " + "'" + 입력창_value[index++] + "'" + ";"; }
+      if(typeof 입력값[index] == "number") { str += in_variable[i] + " = " + 입력값[index++] + ";"; }
+      else { str += in_variable[i] + " = " + "'" + 입력값[index++] + "'" + ";"; }
     }
     end = source_code.indexOf(';', end);
     change_str = source_code.substring(start-3, end+1);
@@ -133,12 +133,12 @@ function change_code_input(source_code) {
   }
 
   if(입력변수개수 > 0) {
-    if(입력변수개수 > 입력창_value.length) {
+    if(입력변수개수 > 입력값.length) {
       var result = "<span style='color:red'>오류 : 입력 값이 충분하지 않습니다.\n</span>";
       $('#출력').append(result);
       return false;
     }
-    else if(입력변수개수 != 입력창_value.length) {
+    else if(입력변수개수 != 입력값.length) {
       var result = "<span style='color:orange'>경고 : 입력 값을 받을 변수의 수가 입력 값의 수보다 더 많습니다.\n</span>";
       $('#출력').append(result);
     }
