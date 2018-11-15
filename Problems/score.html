@@ -17,52 +17,28 @@
       font-size:18px;
     }
   </style>
+  <script>
+    window.onload = function () {
+      var table = document.getElementById('채점');
+      var index = 0;
+
+      var 테이블동적생성 = setInterval(function() {
+        var row = table.insertRow(++index); // 하단에 추가
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = index;
+        cell2.innerHTML = '채점';
+        //<span style="color:blue">성공</span>
+        if( index == 10 ) clearInterval(테이블동적생성);
+      }, 100);
+    }
+  </script>
 </head>
 <body>
-  <table>
+  <table id="채점">
     <tr>
       <th style="width:130px">데이터 번호</th>
       <th style="width:250px">채점 결과</th>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td><span style="color:blue">성공</span></td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td></td>
     </tr>
   </table>
 </body>

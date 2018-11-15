@@ -4,19 +4,19 @@ function compile(source_code) {
 
   if(source_code.search("함수 메인()") == -1) { $("#출력").text("오류 : 메인 함수가 없습니다!").css('color','red');return; }
 
-  if( 중괄호_세기(source_code) == false ) return false;  //중괄호 괄호 세기
+  if( 중괄호_세기(source_code) == false ) return false; //중괄호 괄호 세기
   if( 소괄호_세기(source_code) == false ) return false; //소괄호 개수 세기
   if( 대괄호_세기(source_code) == false ) return false; //대괄호 괄호 세기
 
   if ( 줄마다_check(source_code) == false ) return false;
 
   입력값 = 입력값_얻기();  //입력값의 값들 가져오기
-  source_code = 입력_코드바꾸기(source_code); //입력() 에 대해서만 코드 바꾸기(고정 자료형 체크를 하기 위해)
-  if( source_code == false ) return false;
+  source_code = 입력_코드바꾸기(source_code); //입력() 에 대해서만 코드 바꾸기(고정자료형 체크를 하기 위해)
+  if( source_code == false ) return false;  //입력값이 충분하지 않으면
 
-  var 변수들_type = get_variables_type(source_code); //선언된 변수들의 자료형 저장
-  if( 변수들_type == false ) return false;
-  if( equal_type_checking(source_code, 변수들_type) == false )  return false;  //고정 자료형 체크
+  var 변수자료형 = 변수자료형_얻기(source_code); //선언된 변수들의 자료형 저장
+  if( 변수자료형 == false ) return false;
+  if( 같은자료형인지_check(source_code, 변수자료형) == false )  return false;  //고정 자료형 체크
 
   $("#출력").append("컴파일 성공!").css('color','blue');
   return [source_code, true];
@@ -146,7 +146,7 @@ function 입력_코드바꾸기(source_code) {
   return source_code;
 }
 
-function get_variables_type(source_code) {
+function 변수자료형_얻기(source_code) {
   var 변수종류 = [ '변수', '실수', '정수', '문자', '문자열' ];
   var start = -1 , end;
   var end_1, end_2;
@@ -181,7 +181,7 @@ function get_variables_type(source_code) {
   return type;
 }
 
-function equal_type_checking(source_code, 변수들_type)
+function 같은자료형인지_check(source_code, 변수자료형)
 {
   var equal = -1;
   var start, end;
@@ -207,8 +207,8 @@ function equal_type_checking(source_code, 변수들_type)
     var str = source_code.substring(start+1,end);
     str = str.replace(/^\s*/,'').replace(/\s*$/,'').split(/\s*=\s*/);
 
-    left_type = 변수들_type[str[0]];
-    right_type = 변수들_type[str[1]];
+    left_type = 변수자료형[str[0]];
+    right_type = 변수자료형[str[1]];
 
     if(left_type == undefined) {  //왼쪽이 선언된 변수가 아닐 때
       var result = "<span style='color:red'>오류 : 변수 " + str[0] + "의 선언 여부를 확인해주세요.</span>\n"
