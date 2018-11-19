@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>한글코딩하기</title>
+    <script src="../jquery-3.3.1.js"></script>
+
+    <script src="./LinedTextarea/jquery-linedtextarea.js"></script>
+    <link href="./LinedTextarea/jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
+
+    <link href="Cedu_SourceCode.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script language="JavaScript" src="Cedu_SourceCode.js"></script>
+    <script language="JavaScript" src="Cedu_Compile.js"></script>
+    <script language="JavaScript" src="Cedu_Execution.js"></script>
+    <script>
+      $(function () { $(".lined").linedtextarea( { /*selectedLine: 1*/ } ); });
+    </script>
+    <script>
+      var source_code;
+      $(document).ready(function() {
+        예약어_color( $('#소스코드').val() );
+        var 코드창_위치 = $('#소스코드').offset();
+        $('#표시화면').css({'top':코드창_위치.top+'px', 'left':코드창_위치.left+'px'});
+
+        var 컴파일_성공여부;
+        var id = "ida";
+
+        $("#코드_저장하기").click(function() {
+          var info = {};
+          info[id] = $("#소스코드").text();
+          $.ajax({
+            url: "/save_code",
+            method: "GET",
+            data : info,
+            success : alert('저장되었습니다.')
+          });
+        });
+
+        $("#코드_불러오기").click(function() {
+          $.ajax({
+            url: "/load_code",
+            method: "GET",
+            data : id,
+            success : function (data) {
+              $("#소스코드").text(data);
+            }
+          });
+        });
+
+        $("#컴파일").click(function() {
+          source_code = $("#소스코드").text();
+          컴파일_성공여부 = compile();
+        });
+
+        $("#실행").click(function() {
+          if ( 컴파일_성공여부 == true ) {
+              execution();
+          }
+          else {
+            $("#출력").html("<span style='color:red'>실행 전에 먼저 컴파일을 수행해주세요.</span>");
+          }
+        });
+
+        $("#디버그").click(function() {
+        });
+
+        $("#소스코드").bind('keydown', function(event) {
+          if(event.keyCode == 9 || event.keyCode == 13 || event.keyCode == 221) {
+            key_event.call(this, event);
+          }
+          예약어_color( $('#소스코드').val() );
+          컴파일_성공여부 = false;
+        });
+        $("#소스코드").bind('keyup', function(event) {
+          예약어_color( $('#소스코드').val() );
+          컴파일_성공여부 = false;
+        });
+        $('#소스코드').scroll( function() {
+          스크롤공유();
+        });
+      });
+    </script>
+  </head>
+  <body style="margin-left:50px">
+    <br>
+    <button class="btn btn-warning">자동 줄 정렬</button>
+    <span class="dropdown" style="margin-left:150px">
+      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">코드<span class="caret"></span></button>
+      <ul class="dropdown-menu" style="margin-top:13px">
+        <li><a id="코드_저장하기" style="cursor:pointer">저장하기</a></li>
+        <li><a id="코드_불러오기" style="cursor:pointer">불러오기</a></li>
+      </ul>
+    </span>
+
+    <button id="컴파일" class="btn btn-primary">컴파일</button>
+    <button id="실행" class="btn btn-success">실행</button>
+    <button id="디버그" class="btn btn-danger">디버그</button>
+    <br/><br/>
+    <table>
+      <tr>
+        <th rowspan="2">
+          <div align="left">소스코드</div>
+            <textarea class="lined" id="소스코드" style="line-height:20px">
+함수 메인()
+{
+	변수 a,b,c;
+	입력(a,b);
+	출력(a,b);
+	입력(c);
+	출력(a+b+c);
+}</textarea>
+        </th>
+        <th>
+          <div style="margin-left:50px">입력</div>
+          <textarea id="입력" style="margin-left:50px">10 10 5</textarea>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <div align="left" style="margin-left:50px">출력</div>
+          <div id='출력' style="margin-left:50px"></div>
+        </th>
+      </tr>
+    </table>
+    <div contenteditable="true" id="표시화면"></div>
+  </body>
+</html>

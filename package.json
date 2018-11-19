@@ -1,0 +1,22 @@
+{
+  "name": "cedu",
+  "version": "1.0.0",
+  "description": "Using...\r - HTML\r - CSS\r - JavaScript\r - OpenSource : jQuery, 부트스트랩, LinedTextarea",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gibiee/Cedu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gibiee/Cedu/issues"
+  },
+  "homepage": "https://github.com/gibiee/Cedu#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

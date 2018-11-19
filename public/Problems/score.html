@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    table {
+      border:1px solid #444444;
+      border-collapse:collapse;
+    }
+    th, td {
+      border:1px solid #444444;
+      text-align:center;
+      font-size:15px;
+      height:30px;
+    }
+    th {
+      font-size:18px;
+    }
+  </style>
+  <script>
+    window.onload = function () {
+      var table = document.getElementById('채점'), index = 0;
+      var 채점_결과 = window.opener.채점_결과;
+      var 채점_수 = window.opener.채점_수;
+
+      var 테이블동적생성 = setInterval(function() {
+        var row = table.insertRow(++index); // 하단에 추가
+        var cell_1 = row.insertCell(0);
+        var cell_2 = row.insertCell(1);
+
+        cell_1.innerHTML = index;
+
+        if(채점_결과[index-1] == true) { cell_2.innerHTML = '<span style="color:blue">정답</span>';}
+        else { cell_2.innerHTML = '<span style="color:red">오답</span>'; }
+
+        if( index == 채점_수 ) {
+          메세지 = document.getElementById("채점메세지");
+          if( 채점_결과.every( function (현재값) { return 현재값 == true } ) ) {
+            메세지.innerHTML = "<span style='color:green'><b>맞았습니다!</b></span>";
+          }
+          else {
+            메세지.innerHTML = "<span style='color:red'><b>틀렸습니다.</b></span>";
+          }
+          clearInterval(테이블동적생성);
+        }
+      }, 100);
+    }
+  </script>
+</head>
+<body >
+  <table id="채점" style="margin:auto">
+    <tr>
+      <th style="width:130px">데이터 번호</th>
+      <th style="width:250px">채점 결과</th>
+    </tr>
+  </table>
+  <br/>
+  <div id="채점메세지" style="text-align:center"></div>
+</body>
+</html>
