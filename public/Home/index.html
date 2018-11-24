@@ -32,9 +32,61 @@
       background:black;
     }
     iframe {
-      height:100vh;
+      height:90vh;
     }
   </style>
+  <script>
+    var id; //Coding-코드저장에 필요함!
+
+    function logout() {
+      var _logout = confirm("로그아웃 하시겠습니까?");
+      if(_logout) {
+        $.ajax({
+          type: "POST",
+          url: "/logout",
+          success : function (data) {
+            $("#로그인_menu").css('display', 'block');
+            $("#로그인_상태").html('');
+          }
+        });
+      }
+    }
+
+    $(document).ready( function () {
+      $.ajax({
+        type: "POST",
+        url: "/",
+        success : function (data) {
+          id = data;
+          if(id != "익명") {
+            $("#로그인_menu").hide();
+            $("#로그인_상태").html("<b>" + id + "</b>님 안녕하세요!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            + "<a href='javascript:void(0);' onclick='logout();' style='font-size:16px'>로그아웃</a>");
+          }
+        }
+      });
+
+      $("#로그인_form").click( function () {
+        $.ajax({
+          type: "POST",
+          url: "/login",
+          data: $('#login_form').serialize(),
+          success : function (data) {
+            if(data == true) {
+              id = $('#login_form').serializeArray()[0].value;
+              alert("로그인 성공!");
+              $("#로그인_menu").hide();
+              $("#로그인_상태").html("<b>" + id + "</b>님 안녕하세요!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+              + "<a href='javascript:void(0);' onclick='logout();' style='font-size:16px'>로그아웃</a>");
+              $("#login-modal").click();
+            }
+            else { alert(data); }
+          },
+        });
+      });
+    });
+
+  </script>
 </head>
 <body style="overflow:hidden">
   <header id="header" class="skel-layers-fixed">
@@ -46,23 +98,24 @@
         <li><a href="../Coding/Cedu_Coding.html" target="home">코딩하기</a></li>
         <li><a href="../Problems/Cedu_List.html" target="home">문제풀기</a></li>
         <li><a href="#" target="home">커뮤니티</a></li>
-        <li><a class="button special" target="home" data-toggle="modal" data-target="#login-modal">로그인</a></li>
+        <li><a class="button special" data-toggle="modal" data-target="#login-modal" id="로그인_menu">로그인</a></li>
+        <li><div id="로그인_상태"></div></li>
       </ul>
     </nav>
   </header>
 
   <br/>
-  <iframe name="home" src = "./Cedu_Home.html" width="100%"  frameborder=0></iframe>
+  <iframe name="home" src = "./Cedu_Home.html" width="100%" frameborder=0></iframe>
 
   <!-- 로그인 화면 -->
   <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
     <div class="modal-dialog">
       <div class="loginmodal-container">
         <br/><br/><h1>로그인</h1>
-        <form>
-          <input type="text" name="user" placeholder="아이디">
-          <input type="password" name="pass" placeholder="비밀번호">
-          <input type="submit" name="login" class="login loginmodal-submit" value="로그인">
+        <form id="login_form">
+          <input type="text" name="id" placeholder="아이디"/>
+          <input type="password" name="pwd" placeholder="비밀번호" />
+          <input type="button" name="login" class="login loginmodal-submit" value="로그인" id="로그인_form" />
         </form>
         <div class="login-help">
           <a href="#">회원가입</a>

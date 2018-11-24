@@ -18,34 +18,37 @@
       $(function () { $(".lined").linedtextarea( { /*selectedLine: 1*/ } ); });
     </script>
     <script>
+      var id = window.parent.id;
       var source_code;
       $(document).ready(function() {
         예약어_color( $('#소스코드').val() );
         var 코드창_위치 = $('#소스코드').offset();
         $('#표시화면').css({'top':코드창_위치.top+'px', 'left':코드창_위치.left+'px'});
-
         var 컴파일_성공여부;
-        var id = "ida";
 
         $("#코드_저장하기").click(function() {
           var info = {};
-          info[id] = $("#소스코드").text();
+          info[id] = $("#소스코드").val();
           $.ajax({
             url: "/save_code",
-            method: "GET",
-            data : info,
-            success : alert('저장되었습니다.')
+            method: "POST",
+            data: info,
+            success: function () { alert('저장되었습니다.'); },
+            error : function () { alert('저장 실패'); }
           });
         });
 
         $("#코드_불러오기").click(function() {
           $.ajax({
             url: "/load_code",
-            method: "GET",
+            method: "POST",
             data : id,
             success : function (data) {
-              $("#소스코드").text(data);
-            }
+              $("#소스코드").val(data);
+              예약어_color( $('#소스코드').val() );
+              alert('코드 불러오기 성공.')
+            },
+            error : function () { alert("저장된 코드가 없습니다."); }
           });
         });
 
