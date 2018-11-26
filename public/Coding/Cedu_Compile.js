@@ -218,7 +218,10 @@ function 같은자료형인지_check(변수자료형)
       return false;
     }
     else if(right_type == undefined){ //오른쪽이 변수가 아닐 때
-      right_type = type_checking(str[1].replace(/'/g,''));
+      if (str[1].search(/[+\-*/]/) != -1) continue;
+      //↑ 변수들을 split해서 리스트로 변환 후 그 리스트를 보고 최종 변수가 무엇인지 판별하는 함수를 만들 것!
+
+      right_type = type_checking(str[1].replace(/['"]/g,''));
 
       if(left_type == "변수") continue;
       else if(left_type == right_type) continue;

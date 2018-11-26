@@ -2,7 +2,6 @@
 <html>
 <head>
   <script src="../jquery-3.3.1.js"></script>
-
   <style>
   table {
     height:15%;
@@ -21,18 +20,50 @@
   </style>
 
   <script>
-    var count = [0, 0, 0, 0.0]; //제출, 맞은, 틀린, 정답 퍼센트
-    count[3] = Math.floor(count[1] / count[0] * 100);
+    var list = [];
+    $(document).ready(function () {
 
-    $('#1_4').html(count[0]);
+      var 문제명 = [null,'b','c','d'];
+      var 난이도 = [null, 'ㅇ','ㅇ','ㅇ'];
 
-    function push_count() {
-      //alert('a');
-    }
+      for(var i = 1; i<5; i++)
+      {
+        $('#문제리스트').append(
+          $('<tr>').append(
+            "<td>1</td>\n" +
+            "<td><a href='./1.html'>두 수를 더하기</a></td>\n" +
+            "<td id='1_난이도'>☆</td>\n" +
+            "<td id='1_제출한_사람'></td>\n" +
+            "<td id='1_맞은_사람'></td>\n" +
+            "<td id='1_틀린_사람'></td>\n" +
+            "<td id='1_정답률'>%</td>"
+          )
+        );
+      }
+
+      $.ajax({
+        type: "GET",
+        url: "/bring_problem_rate",
+        success : function (data) {
+          list = data;
+
+          var 문제번호, 제출횟수, 맞은횟수, target;
+          for(var i in list) {
+            문제번호 = Number(i) + 1;
+            제출횟수 = list[i][0];
+            맞은횟수 = list[i][1];
+
+            $('#'+문제번호+'_제출한_사람').html(제출횟수);
+            $('#'+문제번호+'_맞은_사람').html(맞은횟수);
+            $('#'+문제번호+'_틀린_사람').html(제출횟수-맞은횟수);
+          }
+        }
+      });
+    });
   </script>
 </head>
 <body>
-  <table>
+  <table id="문제리스트">
     <tr>
       <th width="50px">번호</th>
       <th width="400px">문제명</th>
@@ -44,57 +75,57 @@
     </tr>
     <tr>
       <td>1</td>
-      <td><a href=".\1.html" onclick="push_count()">두 수를 더하기</a></td>
-      <td id="1_3">☆</td>
-      <td id="1_4"></td>
-      <td id="1_5"></td>
-      <td id="1_6"></td>
-      <td>%</td>
+      <td><a href="./1.html">두 수를 더하기</a></td>
+      <td id="1_난이도">☆</td>
+      <td id="1_제출한_사람"></td>
+      <td id="1_맞은_사람"></td>
+      <td id="1_틀린_사람"></td>
+      <td id="1_정답률">%</td>
     </tr>
     <tr>
       <td>2</td>
       <td>두 수를 빼기</td>
-      <td>☆</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>%</td>
+      <td id="2_난이도">☆</td>
+      <td id="2_제출한_사람"></td>
+      <td id="2_맞은_사람"></td>
+      <td id="2_틀린_사람"></td>
+      <td id="2_정답률">%</td>
     </tr>
     <tr>
       <td>3</td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>%</td>
+      <td id="3_난이도"></td>
+      <td id="3_제출한_사람"></td>
+      <td id="3_맞은_사람"></td>
+      <td id="3_틀린_사람"></td>
+      <td id="3_정답률">%</td>
     </tr>
     <tr>
       <td>4</td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>%</td>
+      <td id="4_난이도"></td>
+      <td id="4_제출한_사람"></td>
+      <td id="4_맞은_사람"></td>
+      <td id="4_틀린_사람"></td>
+      <td id="4_정답률">%</td>
     </tr>
     <tr>
       <td>5</td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>%</td>
+      <td id="5_난이도"></td>
+      <td id="5_제출한_사람"></td>
+      <td id="5_맞은_사람"></td>
+      <td id="5_틀린_사람"></td>
+      <td id="5_정답률">%</td>
     </tr>
     <tr>
       <td>6</td>
       <td>피보나치 수열</td>
-      <td>☆☆☆☆</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>%</td>
+      <td id="6_난이도">☆☆☆☆</td>
+      <td id="6_제출한_사람"></td>
+      <td id="6_맞은_사람"></td>
+      <td id="6_틀린_사람"></td>
+      <td id="6_정답률">%</td>
     </tr>
     <tr>
       <td>7</td>

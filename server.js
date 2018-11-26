@@ -5,14 +5,15 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 
 const users = {
-  남건민 : [123, null, 0, 0],
-  김유일 : [456, null, 0, 0],
-  익명 : [0, null, 0, 0, 0]
+  익명  :  [0  , null, [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+  남건민 : [123, null, [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+  김유일 : [456, null, [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
 }
 var current_id = "익명"
 /*
 [0] : 패스워드
 [1] : 저장한 소스
+[2] : 1번문제에 대한 리스트 [제출횟수, 맞은횟수]
 */
 app.use(express.static(__dirname + '/public/'))
 app.use(express.static(__dirname + '/public/Home/'))
@@ -20,7 +21,7 @@ app.use(express.static(__dirname + '/public/Home/'))
 
 app.post('/', (request, response) => {
   console.log("현재 " + current_id + "님으로 접속 중입니다.")
-  response.send(current_id)
+  response.send(current_id);
 })
 
 /*
@@ -74,6 +75,34 @@ app.post('/logout', (request, response) => {
   console.log(current_id + "님이 로그아웃하셨습니다.");
   current_id = "익명";
   response.send(current_id);
+})
+
+app.get('/bring_problem_rate', (request, response) => {
+  var 제출횟수, 맞은횟수; //문제별
+  var list = [];
+
+  for(var i=2 ; i<7; i++) //전체 문제 수에 비례 a-1번 ~ b-1번까지
+  {
+    제출횟수 = 0; 맞은횟수 = 0;
+    for(var id in users) {
+      제출횟수 += users[id][i][0];
+      맞은횟수 += users[id][i][1];
+    }
+    list.push( [ 제출횟수, 맞은횟수 ] );
+  }
+  response.send(list);
+})
+
+app.get('/marking', (request, response) => {
+  var id = Object.keys(request.query)[0];
+  var 문제번호 = Number(request.query[id][0]);
+  var 채점결과 = request.query[id][1];
+
+  users[id][문제번호+1][0]++;
+  if(채점결과 == "맞았습니다!") { user[id][문제번호+1][1]++; }
+
+  console.log(id + "님이 " + 문제번호 + "번 문제를 채점하셨습니다. 결과 : " + 채점결과);
+  response.send(true);
 })
 
 app.listen(52273, () => {
