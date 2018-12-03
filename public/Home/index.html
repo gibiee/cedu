@@ -50,10 +50,11 @@
           }
         });
       }
+      window.location.reload();
     }
 
     $(document).ready( function () {
-      $.ajax({
+      $.ajax({  //평소에(기본으로) 아이디 받아오기
         type: "POST",
         url: "/",
         success : function (data) {
@@ -79,6 +80,7 @@
               $("#로그인_상태").html("<b>" + id + "</b>님 안녕하세요!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
               + "<a href='javascript:void(0);' onclick='logout();' style='font-size:16px'>로그아웃</a>");
               $("#login-modal").click();
+              window.location.reload();
             }
             else { alert(data); }
           },
