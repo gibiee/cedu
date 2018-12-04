@@ -1,26 +1,20 @@
 ﻿# Cedu
 ## The Programming Language of Hangul for education
-## First Commit : 181001
+교육용 한글 프로그래밍 언어
+
+### First Commit : 181001
 
 Using...
 - HTML
-- CSS
-- JavaScript
-- OpenSource : jQuery, 부트스트랩, LinedTextarea
+- CSS (using Bootstrap)
+- JavaScript (using jQuery)
+- Node.js (using Express, Body-parser)
+- OpenSource : LinedTextarea
 
 ### NEXT
-- 코드저장 및 불러오기 완료
-- 로그인 완료
-- 로그인과 코드 저장/로드 연동 완료
-(채점한 사람 수를 받아오는 코드를 짜자)
-(문제 리스트 테이블 동적생성)
-
-에디터 기능은 나중에 손보고
-서버 기능부터 추가하자
-
+에디터 기능은 나중에 손보기
 - 자동 줄 정렬 버튼
 - 주석
 - 소스코드 드래그해서 이동시키면 에러?
 
-### 최종 디자인 완성되면
-- \<table\> 등의 간격 조정
+#### 19년 8월까지 수정 예정 있음.

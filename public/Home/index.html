@@ -50,7 +50,7 @@
           }
         });
       }
-      window.location.reload();
+      id = "익명";
     }
 
     $(document).ready( function () {
@@ -80,7 +80,6 @@
               $("#로그인_상태").html("<b>" + id + "</b>님 안녕하세요!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
               + "<a href='javascript:void(0);' onclick='logout();' style='font-size:16px'>로그아웃</a>");
               $("#login-modal").click();
-              window.location.reload();
             }
             else { alert(data); }
           },
