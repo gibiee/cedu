@@ -24,14 +24,6 @@
     li {
       font-size:20px;
     }
-    hr {
-      border:0;
-      height:5px;
-      background:black;
-    }
-    iframe {
-      height:90vh;
-    }
   </style>
   <script>
     $(document).ready( function () {
@@ -39,16 +31,17 @@
     });
   </script>
 </head>
+
 <body>
   <header id="header" class="skel-layers-fixed" style="overflow:hidden">
-    <h1><a href="./Cedu_Home.html" target="home" style="font-size:30px">Cedu</a></h1>
+    <h1><a href="./main.html" target="home" style="font-size:30px">Cedu</a></h1>
     <nav id="nav">
       <ul>
-        <li><a href="./Cedu_Home.html" target="home">소개</a></li>
-        <li><a href="#" target="home">메뉴얼</a></li>
-        <li><a href="../Coding/Cedu_Coding.html" target="home">코딩하기</a></li>
-        <li><a href="../Problems/Cedu_List.html" target="home">문제풀기</a></li>
-        <li><a href="#" target="home">커뮤니티</a></li>
+        <li><a href="./main.html" target="_self">소개</a></li>
+        <li><a href="#" target="_self">메뉴얼</a></li>
+        <li><a href="./editor.html" target="_self">코딩하기</a></li>
+        <li><a href="./question_list.html" target="_self">문제풀기</a></li>
+        <li><a href="#" target="_self">커뮤니티</a></li>
         <li><a class="button special" data-toggle="modal" data-target="#login-modal" id="로그인_menu">로그인</a></li>
         <li><div id="로그인_상태"></div></li>
       </ul>
