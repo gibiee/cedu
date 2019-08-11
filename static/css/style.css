@@ -617,11 +617,11 @@
 		-webkit-overflow-scrolling: touch;
 		overflow-x: auto;
 	}
-
+/*
 	table {
 		margin: 0 0 2em 0;
 		width: 100%;
-	}
+	} */
 
 	/*
 		table tbody tr {
@@ -633,18 +633,18 @@
 			table tbody tr:nth-child(2n + 1) {
 				background-color: rgba(144, 144, 144, 0.075);
 			} */
-
+			/*
 		table td {
 			padding: 0.75em 0.75em;
-		}
-
+		}*/
+		/*
 		table th {
 			color: #666f77;
 			font-size: 0.9em;
 			font-weight: 500;
 			padding: 0 0.75em 0.75em 0.75em;
 			text-align: left;
-		}
+		}*/
 
 		table thead {
 			border-bottom: solid 2px rgba(144, 144, 144, 0.25);
