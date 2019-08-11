@@ -2,22 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <script src="../jquery-3.3.1.js"></script>
-  <style>
-    table {
-      border:1px solid #444444;
-      border-collapse:collapse;
-    }
-    th, td {
-      border:1px solid #444444;
-      text-align:center;
-      font-size:15px;
-      height:30px;
-    }
-    th {
-      font-size:18px;
-    }
-  </style>
+  <script src="../static/js/jquery-3.3.1.js"></script>
+  <link href="../static/css/cedu_question.css" type="text/css" rel="stylesheet" />
+
   <script>
     window.onload = function () {
       var table = document.getElementById('채점'), index = 0;
@@ -40,29 +27,14 @@
           if( 채점_결과.every( function (현재값) { return 현재값 == true } ) ) {
             메세지.innerHTML = "<span style='color:green'><b>맞았습니다!</b></span>";
             채점_최종결과 = "맞았습니다!";
-            send_채점_최종결과();
           }
           else {
             메세지.innerHTML = "<span style='color:red'><b>틀렸습니다.</b></span>";
             채점_최종결과 = "틀렸습니다.";
-            send_채점_최종결과();
           }
           clearInterval(테이블동적생성);
         }
       }, 100);
-
-      var 문제번호 = window.opener.문제번호;
-      var id = window.opener.parent.id;
-      function send_채점_최종결과() {
-        var 보낼데이터 = {};
-        보낼데이터[id] = [문제번호, 채점_최종결과];
-        $.ajax({
-          type: "GET",
-          url: "/marking",
-          data : 보낼데이터
-        });
-      }
-
     }
   </script>
 </head>

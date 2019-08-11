@@ -1,0 +1,14 @@
+table {
+  height:15%;
+  border:1px solid #444444;
+  border-collapse:collapse;
+}
+th, td {
+  border:1px solid #444444;
+  text-align:center;
+  font-size:15px;
+  height:30px;
+}
+th {
+  font-size:18px;
+}

@@ -1,24 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="../jquery-3.3.1.js"></script>
-  <style>
-  table {
-    height:15%;
-    border:1px solid #444444;
-    border-collapse:collapse;
-  }
-  th, td {
-    border:1px solid #444444;
-    text-align:center;
-    font-size:15px;
-    height:30px;
-  }
-  th {
-    font-size:18px;
-  }
-  </style>
-
+  <script src="../static/js/jquery-3.3.1.js"></script>
+  <link rel="stylesheet" href="../static/css/cedu_question_list.css" />
   <script>
     var list = [];
     $(document).ready(function () {
@@ -31,7 +15,7 @@
         $('#문제리스트').append(
           $('<tr>').append(
             "<td>" + (i+1) + "</td>\n" +
-            "<td><a href='./" + (i+1) +".html'>" + 문제명[i] + "</a></td>\n" +
+            "<td><a href='question.html'>" + 문제명[i] + "</a></td>\n" +
             "<td>" + 난이도[i]  +  "</td>\n" +
             "<td id='" + (i+1) + "_제출한_사람'></td>\n" +
             "<td id='" + (i+1) + "_맞은_사람'></td>\n" +
@@ -40,27 +24,6 @@
           )
         );
       }
-
-      $.ajax({
-        type: "GET",
-        url: "/bring_problem_rate",
-        success : function (data) {
-          list = data;
-
-          var 문제번호, 제출횟수, 맞은횟수, target;
-          for(var i in list) {
-            문제번호 = Number(i) + 1;
-            제출횟수 = list[i][0];
-            맞은횟수 = list[i][1];
-
-            $('#'+문제번호+'_제출한_사람').html(제출횟수);
-            $('#'+문제번호+'_맞은_사람').html(맞은횟수);
-            $('#'+문제번호+'_틀린_사람').html(제출횟수-맞은횟수);
-            if(제출횟수 == 0) { $('#'+문제번호+'_정답률').html(0 + ' %'); }
-            else { $('#'+문제번호+'_정답률').html(+(맞은횟수/제출횟수*100).toFixed(2) + ' %'); }
-          }
-        }
-      });
     });
   </script>
 </head>
