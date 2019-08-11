@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="../static/js/jquery-3.3.1.js"></script>
-  <link rel="stylesheet" href="../static/css/style.css" />
-  <link rel="stylesheet" href="../static/css/style-xlarge.css" />
-  <style type="text/css">
-  li {
-      font-size:20px;
-    }
+  <script src="../jquery-3.3.1.js"></script>
+  <style>
   table {
+    height:15%;
     border:1px solid #444444;
     border-collapse:collapse;
   }
   th, td {
     border:1px solid #444444;
-    text-align:center !important;
-    vertical-align:bottom !important;
+    text-align:center;
+    font-size:15px;
+    height:30px;
   }
   th {
-    font-size:18px !important;
-    font-weight: bold !important;
-    vertical-align:bottom !important;
+    font-size:18px;
   }
   </style>
+
   <script>
     var list = [];
     $(document).ready(function () {
@@ -35,7 +31,7 @@
         $('#문제리스트').append(
           $('<tr>').append(
             "<td>" + (i+1) + "</td>\n" +
-            "<td><a href='./question.html'>" + 문제명[i] + "</a></td>\n" +
+            "<td><a href='./" + (i+1) +".html'>" + 문제명[i] + "</a></td>\n" +
             "<td>" + 난이도[i]  +  "</td>\n" +
             "<td id='" + (i+1) + "_제출한_사람'></td>\n" +
             "<td id='" + (i+1) + "_맞은_사람'></td>\n" +
@@ -44,37 +40,40 @@
           )
         );
       }
+
+      $.ajax({
+        type: "GET",
+        url: "/bring_problem_rate",
+        success : function (data) {
+          list = data;
+
+          var 문제번호, 제출횟수, 맞은횟수, target;
+          for(var i in list) {
+            문제번호 = Number(i) + 1;
+            제출횟수 = list[i][0];
+            맞은횟수 = list[i][1];
+
+            $('#'+문제번호+'_제출한_사람').html(제출횟수);
+            $('#'+문제번호+'_맞은_사람').html(맞은횟수);
+            $('#'+문제번호+'_틀린_사람').html(제출횟수-맞은횟수);
+            if(제출횟수 == 0) { $('#'+문제번호+'_정답률').html(0 + ' %'); }
+            else { $('#'+문제번호+'_정답률').html(+(맞은횟수/제출횟수*100).toFixed(2) + ' %'); }
+          }
+        }
+      });
     });
   </script>
 </head>
 <body>
-  <header id="header" class="skel-layers-fixed" style="overflow:hidden">
-    <h1><a href="./main.html" target="_self" style="font-size:33px">Cedu</a></h1>
-    <nav id="nav">
-      <ul>
-        <li><a href="./main.html" target="_self">소개</a></li>
-        <li><a href="#" target="_self">메뉴얼</a></li>
-        <li><a href="./editor.html" target="_self">코딩하기</a></li>
-        <li><a href="./question_list.html" target="_self">문제풀기</a></li>
-        <li><a href="#" target="_self">커뮤니티</a></li>
-        <li><a class="button special" data-toggle="modal" data-target="#login-modal" id="로그인_menu">로그인</a></li>
-        <li><div id="로그인_상태"></div></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section style="margin-top:100px">
-    <table id="문제리스트">
-      <tr>
-        <th width="50px">번호</th>
-        <th width="400px">문제명</th>
-        <th width="120px">난이도</th>
-        <th width="100px">제출 횟수</th>
-        <th width="100px">맞은 횟수</th>
-        <th width="100px">틀린 횟수</th>
-        <th width="100px">정답률</th>
-      </tr>
-    </table>
-  </section>
+  <table id="문제리스트">
+    <tr>
+      <th width="50px">번호</th>
+      <th width="400px">문제명</th>
+      <th width="120px">난이도</th>
+      <th width="100px">제출 횟수</th>
+      <th width="100px">맞은 횟수</th>
+      <th width="100px">틀린 횟수</th>
+      <th width="100px">정답률</th>
+    </tr>
 </body>
 </html>

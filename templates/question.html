@@ -4,10 +4,11 @@
   <meta charset="utf-8">
   <script src="../jquery-3.3.1.js"></script>
 
-  <link href="../static/css/cedu_question.css" type="text/css" rel="stylesheet" />
+  <link href="./problems.css" type="text/css" rel="stylesheet" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 
   <script>
+    var id = window.parent.id;
     var 문제번호 = 1;
     var 채점_수 = 10;
     var 채점_데이터 = ["0 0", "1 2", "9 9", "279 93", "2349 93941",
@@ -71,46 +72,9 @@
           <button id="제출" class="btn btn-info btn-lg" style="margin-left:150px">코드 제출하기</button>
         </section>
       </td>
-      <td style="border-left:3px solid gray">
-        <section style="margin:120px">
-          <button class="btn btn-warning">자동 줄 정렬</button>
-          <span class="dropdown" style="margin-left:150px">
-            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">코드<span class="caret"></span></button>
-            <ul class="dropdown-menu" style="margin-top:13px">
-              <li><a id="코드_저장하기" style="cursor:pointer">저장하기</a></li>
-              <li><a id="코드_불러오기" style="cursor:pointer">불러오기</a></li>
-            </ul>
-          </span>
-
-          <button id="컴파일" class="btn btn-primary">컴파일</button>
-          <button id="실행" class="btn btn-success">실행</button>
-          <button id="디버그" class="btn btn-danger">디버그</button>
-          <br/><br/>
-
-          <table style="width:85%">
-            <tr>
-              <th rowspan="2">
-                <div align="left">소스코드</div>
-                  <textarea class="lined" id="소스코드">
-      함수 메인()
-      {
-      }</textarea>
-              </th>
-              <th>
-                <div>입력</div>
-                <textarea id="입력">10 10 5</textarea>
-              </th>
-            </tr>
-            <tr>
-              <th>
-                <div align="left">출력</div>
-                <div id='출력'></div>
-              </th>
-            </tr>
-          </table>
-
-          <div contenteditable="true" id="표시화면"></div>
-
+      <td>
+        <section class="제출코딩">
+          <iframe id="프레임" src="../Coding/Cedu_Coding.html" width="950px" height="650px"></iframe>
         </section>
       </td>
     </tr>
