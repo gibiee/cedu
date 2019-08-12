@@ -14,6 +14,7 @@ $(document).ready(function() {
     $('#프레임').contents().find('#출력').html(원래_출력);
 
     console.log(채점_결과);
-    window.open("../templates/marking.html","채점 결과",'width=500, height=500');
+    //window.open("home.html", "홈", width=500, height=500);
+    window.open("marking.html","채점 결과",'width=500, height=500');
   });
 });
