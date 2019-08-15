@@ -9,12 +9,23 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 
   <script>
-    var 문제번호 = 1;
     var 채점_수 = 10;
-    var 채점_데이터 = ["0 0", "1 2", "9 9", "279 93", "2349 93941",
-                  "-1 0", "0 -1", "-1 -1", "111 -93", "-93 247"];
-    var 채점_데이터_결과 = [0, 3, 18, 372, 96290, -1, -1, -2, 18, 154];
+    var 채점_데이터 = [];
+    var 채점_데이터_결과 = [];
+    /*
+    ["0 0", "1 2", "9 9", "279 93", "2349 93941", "-1 0", "0 -1", "-1 -1", "111 -93", "-93 247"];
+    [0, 3, 18, 372, 96290, -1, -1, -2, 18, 154];
+    */
     var 채점_결과 = [false, false, false, false, false, false, false, false, false, false];
+
+    {% for data in marking_data %}
+        채점_데이터.push("{{ data['입력1'] }}", "{{ data['입력2'] }}", "{{ data['입력3'] }}", "{{ data['입력4'] }}", "{{ data['입력5'] }}",
+            "{{ data['입력6'] }}", "{{ data['입력7'] }}", "{{ data['입력8'] }}", "{{ data['입력9'] }}", "{{ data['입력10'] }}");
+        채점_데이터_결과.push("{{ data['출력1'] }}", "{{ data['출력2'] }}", "{{ data['출력3'] }}", "{{ data['출력4'] }}", "{{ data['출력5'] }}",
+            "{{ data['출력6'] }}", "{{ data['출력7'] }}", "{{ data['출력8'] }}", "{{ data['출력9'] }}", "{{ data['출력10'] }}");
+        console.log(채점_데이터);
+        console.log(채점_데이터_결과);
+    {% endfor %}
   </script>
 </head>
 <body style="margin:20px;margin-left:40px">
@@ -22,58 +33,58 @@
     <tr>
       <td>
         <section class="문제">
-          <h1>1번 문제.</h1><br>
-          두 정수를 입력받아 그 합을 출력하시오.
+            {% for item in question %}
+                <h1>{{ item['문제번호'] }}번 문제.</h1><br>
+                {{ item['문제설명'] }}
+                <br><br><br>
 
-          <br><br><br>
+                <h5><b>예제 1.</b></h5>
+                <span class="예제"><table class="예제t">
+                    <tr>
+                    <th>입력</th>
+                    </tr>
+                    <tr>
+                    <td>{{ item['예제1_입력'] }}</td>
+                    </tr>
+                </table></span>
 
-          <h5><b>예제 1.</b></h5>
-          <span class="예제"><table class="예제t">
-            <tr>
-              <th>입력</th>
-            </tr>
-            <tr>
-              <td>5 10</td>
-            </tr>
-          </table></span>
+                <span class="예제"><table class="예제t">
+                    <tr>
+                    <th>출력</th>
+                    </tr>
+                    <tr>
+                    <td>{{ item['예제1_출력'] }}</td>
+                    </tr>
+                </table></span>
 
-          <span class="예제"><table class="예제t">
-            <tr>
-              <th>출력</th>
-            </tr>
-            <tr>
-              <td>15</td>
-            </tr>
-          </table></span>
+                <br>
 
-          <br>
+                <h5><b>예제 2.</b></h5>
+                <span class="예제"><table class="예제t">
+                    <tr>
+                    <th>입력</th>
+                    </tr>
+                    <tr>
+                    <td>{{ item['예제2_입력'] }}</td>
+                    </tr>
+                </table></span>
 
-          <h5><b>예제 2.</b></h5>
-          <span class="예제"><table class="예제t">
-            <tr>
-              <th>입력</th>
-            </tr>
-            <tr>
-              <td>12 -3</td>
-            </tr>
-          </table></span>
-
-          <span class="예제"><table class="예제t">
-            <tr>
-              <th>출력</th>
-            </tr>
-            <tr>
-              <td>9</td>
-            </tr>
-          </table></span>
-
-          <br>
+                <span class="예제"><table class="예제t">
+                    <tr>
+                    <th>출력</th>
+                    </tr>
+                    <tr>
+                    <td>{{ item['예제2_출력'] }}</td>
+                    </tr>
+                </table></span>
+            {% endfor %}
+            <br>
           <button id="제출" class="btn btn-info btn-lg" style="margin-left:150px">코드 제출하기</button>
         </section>
       </td>
       <td>
         <section class="제출코딩">
-          <iframe id="프레임" src="editor.html" width="950px" height="650px"></iframe>
+          <iframe id="프레임" src="../editor.html" width="950px" height="650px"></iframe>
         </section>
       </td>
     </tr>

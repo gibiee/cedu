@@ -3,7 +3,7 @@ $(document).ready(function() {
     var 원래_입력 = $('#프레임').contents().find('#입력').val();
     var 원래_출력 = $('#프레임').contents().find('#출력').html();
 
-    for(var i = 0; i < 채점_수; i++) {
+    for(var i = 0; i < 10; i++) {
       $('#프레임').contents().find('#입력').val(채점_데이터[i]);
       $('#프레임').contents().find('#컴파일').trigger('click');
       $('#프레임').contents().find('#실행').trigger('click');
@@ -14,7 +14,6 @@ $(document).ready(function() {
     $('#프레임').contents().find('#출력').html(원래_출력);
 
     console.log(채점_결과);
-    //window.open("home.html", "홈", width=500, height=500);
-    window.open("marking.html","채점 결과",'width=500, height=500');
+    window.open("../marking.html","채점 결과",'width=500, height=500');
   });
 });

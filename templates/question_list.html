@@ -3,29 +3,6 @@
 <head>
   <script src="../static/js/jquery-3.3.1.js"></script>
   <link rel="stylesheet" href="../static/css/cedu_question_list.css" />
-  <script>
-    var list = [];
-    $(document).ready(function () {
-
-      var 문제명 = ["두 수를 더하기",'두 수를 빼기','','','','피보나치 수열','이진수 구하기'];
-      var 난이도 = ['★', '★','','','','★★★★★','★★★★★'];
-
-      for(var i = 0; i<문제명.length; i++)
-      {
-        $('#문제리스트').append(
-          $('<tr>').append(
-            "<td>" + (i+1) + "</td>\n" +
-            "<td><a href='question.html'>" + 문제명[i] + "</a></td>\n" +
-            "<td>" + 난이도[i]  +  "</td>\n" +
-            "<td id='" + (i+1) + "_제출한_사람'></td>\n" +
-            "<td id='" + (i+1) + "_맞은_사람'></td>\n" +
-            "<td id='" + (i+1) + "_틀린_사람'></td>\n" +
-            "<td id='" + (i+1) + "_정답률'></td>"
-          )
-        );
-      }
-    });
-  </script>
 </head>
 <body>
   <table id="문제리스트">
@@ -38,5 +15,17 @@
       <th width="100px">틀린 횟수</th>
       <th width="100px">정답률</th>
     </tr>
+    {% for question in question_list %}
+      <tr>
+          <td>{{ question['문제번호'] }}</td>
+          <td><a href="question/{{ question['문제번호'] }}">{{ question['문제명'] }}</a></td>
+          <td>{{ question['난이도'] }}</td>
+          <td>{{ question['제출횟수'] }}</td>
+          <td>{{ question['맞은횟수'] }}</td>
+          <td>{{ question['틀린횟수'] }}</td>
+          <td>{{ question['정답률'] }}</td>
+      </tr>
+    {% endfor %}
+  </table>
 </body>
 </html>
