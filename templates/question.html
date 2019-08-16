@@ -23,6 +23,15 @@
         console.log(채점_데이터);
         console.log(채점_데이터_결과);
     {% endfor %}
+
+    $(document).ready(function() {
+        $('#프레임').on("load", function() {
+            {% for item in question %}
+                $('#프레임').contents().find('#소스코드').html("{{ item['모범답안'] }}");
+            {% endfor %}
+            document.getElementById('프레임').contentWindow.예약어_color( $('#프레임').contents().find('#소스코드').val() );
+        });
+    });
   </script>
 </head>
 <body style="margin:20px;margin-left:40px">
