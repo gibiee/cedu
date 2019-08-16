@@ -12,11 +12,15 @@ Language
 
 Opensource
 - LinedTextarea (http://alan.blog-city.com/jquerylinedtextarea.htm)
-- template (https://templated.co/ion)
+- HTML5 Template (https://templated.co/ion)
 
-### NEXT
-- 3번 문제 만들기
+Platform
+- Google App Engine (with Datastore) 으로 배포
+
+### NEXTW
 - 모범코드 써놓기
-- (프로토타입 단계에서 보류) 현재 "정수 a = 5 + 0.1;" 으로 실행가능한 버그 → 자료형 검사를 자료형 전용 클래스를 만들어서 처리할것 ??
+- 스크린샷 github 업로드
+- (프로토타입 단계에서 보류) 현재 "정수 a = 5 + 0.1;" 으로 실행가능한 버그
+   → 자료형 검사를 자료형 전용 클래스를 만들어서 처리할것
 
 #### 19년 8월까지 수정 예정 있음.

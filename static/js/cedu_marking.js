@@ -8,7 +8,7 @@ $(document).ready(function() {
       $('#프레임').contents().find('#컴파일').trigger('click');
       $('#프레임').contents().find('#실행').trigger('click');
 
-      채점_결과[i] = ( $('#프레임').contents().find('#출력').text() == 채점_데이터_결과[i] );
+      채점_결과[i] = ( $('#프레임').contents().find('#출력').text().trim() == 채점_데이터_결과[i] );
     }
     $('#프레임').contents().find('#입력').val(원래_입력);
     $('#프레임').contents().find('#출력').html(원래_출력);
