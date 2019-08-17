@@ -33,10 +33,12 @@ https://test1-249202.appspot.com
 <img src="/screenshot/1번 문제.png" />
 
 #### 채점 예시
-<img src="/screenshot/채점.png" width="70%"/>
+<img src="/screenshot/채점.png" width="50%"/>
 
 #### 참고
 - Google App Engine에서 초기 git clone 수행 시 cedu_compile.js 파일이 Cedu_Compile.js 파일명으로 저장되는 버그 있음. (항상 파일명 직접 수정할 것.)
 - (프로토타입 단계에서 보류) 현재 "정수 a = 5 + 0.1;" 으로 실행가능한 버그 → 자료형 검사를 자료형 전용 클래스를 만들어서 처리가능할 것으로 생각됨.
+
+<br/>
 
 ### 추후 수정 예정 : 없음.
